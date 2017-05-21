@@ -1,0 +1,1103 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RxSwift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Content Basic Subject Combination Operators Transforming Operators Filtering and Conditional Operators Mathematical and Aggregate Operators Connectable Operators Error Handling Operators Debugging Ope">
+<meta name="keywords" content="RxSwift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift 入坑(一)">
+<meta property="og:url" content="http://yoursite.com/2017/05/10/RxSwift 入坑(一)/index.html">
+<meta property="og:site_name" content="cpbee&#39;s blog">
+<meta property="og:description" content="Content Basic Subject Combination Operators Transforming Operators Filtering and Conditional Operators Mathematical and Aggregate Operators Connectable Operators Error Handling Operators Debugging Ope">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/publishsubject.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/replaysubject.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/behaviorsubject.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/startwith.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/merge.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/zip.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/combinelatest.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/switch.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/map.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/flatmap.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/scan.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/filter.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/distinct.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/elementat.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/take.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/takelast.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/takewhile.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/takeuntil.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/skip.png">
+<meta property="og:image" content="http://reactivex.io/documentation/operators/images/skipWhile.c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/skipuntil.png">
+<meta property="og:image" content="http://reactivex.io/documentation/operators/images/to.c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/reduce.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/concat.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/catch.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/catch.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/retry.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/retry.png">
+<meta property="og:updated_time" content="2017-05-21T01:37:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxSwift 入坑(一)">
+<meta name="twitter:description" content="Content Basic Subject Combination Operators Transforming Operators Filtering and Conditional Operators Mathematical and Aggregate Operators Connectable Operators Error Handling Operators Debugging Ope">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/publishsubject.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/10/RxSwift 入坑(一)/"/>
+
+
+
+
+
+  <title>RxSwift 入坑(一) | cpbee's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cpbee's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/10/RxSwift 入坑(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cpbee's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxSwift 入坑(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-10T14:18:00+08:00">
+                2017-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h3><ol>
+<li><a href="#Basic">Basic</a></li>
+<li><a href="#Subject">Subject</a></li>
+<li><a href="#Combination">Combination Operators</a></li>
+<li><a href="#Transforming">Transforming Operators</a></li>
+<li><a href="#Filtering_Conditional">Filtering and Conditional Operators</a></li>
+<li><a href="#Mathematical_Aggregate">Mathematical and Aggregate Operators</a></li>
+<li><a href="#Connectable">Connectable Operators</a></li>
+<li><a href="#Error_Handling">Error Handling Operators</a></li>
+<li><a href="#Debugging">Debugging Operators</a></li>
+<li><a href="#Refer">Refer</a> </li>
+</ol>
+<h3 id="Basic"><a href="#Basic" class="headerlink" title=" Basic  "></a><a id="Basic"> Basic  </a></h3><ul>
+<li>Observable</li>
+</ul>
+<blockquote>
+<p>Observable 。 Observable<element> 是观察者模式中被观察的对象，相当于一个事件序列 (GeneratorType) ，会向订阅者发送新产生的事件信息。事件信息分为三种：</element></p>
+<ul>
+<li>.Next(value) 表示新的事件数据。</li>
+<li>.Completed 表示事件序列的完结。</li>
+<li>.Error 同样表示完结，但是代表异常导致的完结。</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">_ = Observable&lt;String&gt;.create &#123; observerOfString -&gt; Disposable in</div><div class="line">        print(&quot;This will never be printed&quot;)</div><div class="line">        observerOfString.on(.next(&quot;😬&quot;))</div><div class="line">        observerOfString.on(.completed)</div><div class="line">        return Disposables.create()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Subscribe</li>
+</ul>
+<blockquote>
+<p>subscribe 就是一种简便的订阅信号的方法。这里的subscribe函数就是把消息发给观察者。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">_ = Observable&lt;String&gt;.create &#123; observerOfString in</div><div class="line">            print(&quot;Observable created&quot;)</div><div class="line">            observerOfString.on(.next(&quot;😉&quot;))</div><div class="line">            observerOfString.on(.completed)</div><div class="line">            return Disposables.create()</div><div class="line">        &#125;</div><div class="line">        .subscribe &#123; event in</div><div class="line">            print(event)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">---------console:---------</div><div class="line">next(😉)</div><div class="line">completed</div></pre></td></tr></table></figure>
+<ul>
+<li>empty</li>
+</ul>
+<blockquote>
+<p>empty 是一个空的序列，它只发送 .Completed 消息。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;empty&quot;) &#123;</div><div class="line">    let emptySequence: Observable&lt;Int&gt; = empty()</div><div class="line">    let subscription = emptySequence</div><div class="line">        .subscribe &#123; event in</div><div class="line">            print(event)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- empty example ---</div><div class="line">Completed</div></pre></td></tr></table></figure>
+<ul>
+<li>never </li>
+</ul>
+<blockquote>
+<p>never 是没有任何元素、也不会发送任何事件的空序列。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;never&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    let neverSequence = Observable&lt;String&gt;.never()</div><div class="line">    </div><div class="line">    let neverSequenceSubscription = neverSequence</div><div class="line">        .subscribe &#123; _ in</div><div class="line">            print(&quot;This will never be printed&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    neverSequenceSubscription.disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- never example ---</div></pre></td></tr></table></figure>
+<ul>
+<li>just</li>
+</ul>
+<blockquote>
+<p><strong>just</strong> 是只包含一个元素的序列，它会先发送 .Next(value) ，然后发送 .Completed 。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;just&quot;) &#123;</div><div class="line">    let singleElementSequence = just(32)</div><div class="line">    let subscription = singleElementSequence</div><div class="line">        .subscribe &#123; event in</div><div class="line">            print(event)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- just example ---</div><div class="line">Next(32)</div><div class="line">Completed</div></pre></td></tr></table></figure>
+<ul>
+<li>of</li>
+</ul>
+<blockquote>
+<p>of 可以把一系列元素转换成事件序列。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;of&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐶&quot;, &quot;🐱&quot;, &quot;🐭&quot;, &quot;🐹&quot;)</div><div class="line">        .subscribe(onNext: &#123; element in</div><div class="line">            print(element)</div><div class="line">        &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- of example ---</div><div class="line">🐶</div><div class="line">🐱</div><div class="line">🐭</div><div class="line">🐹</div></pre></td></tr></table></figure>
+<ul>
+<li>from</li>
+</ul>
+<blockquote>
+<p>from 是把 Swift 中的序列 (SequenceType) 转换成事件序列。 Creates an Observable sequence from a Sequence, such as an Array, Dictionary, or Set.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;from&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.from([&quot;🐶&quot;, &quot;🐱&quot;, &quot;🐭&quot;, &quot;🐹&quot;])</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- from example ---</div><div class="line">🐶</div><div class="line">🐱</div><div class="line">🐭</div><div class="line">🐹</div></pre></td></tr></table></figure>
+<ul>
+<li>create</li>
+</ul>
+<blockquote>
+<p>create 可以通过闭包创建序列，通过 .on(e: Event) 添加事件<br><a href="http://reactivex.io/documentation/operators/create.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;create&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let myJust = &#123; (element: String) -&gt; Observable&lt;String&gt; in</div><div class="line">        return Observable.create &#123; observer in</div><div class="line">            observer.on(.next(element))</div><div class="line">            observer.on(.completed)</div><div class="line">            return Disposables.create()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    myJust(&quot;🔴&quot;)</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- create example ---</div><div class="line">next(🔴)</div><div class="line">completed</div></pre></td></tr></table></figure>
+<ul>
+<li>Range</li>
+</ul>
+<blockquote>
+<p>Creates an Observable sequence that emits a range of sequential integers and then terminates<br><a href="http://reactivex.io/documentation/operators/range.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">example(&quot;range&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.range(start: 1, count: 10)</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- range example ---</div><div class="line">next(1)</div><div class="line">next(2)</div><div class="line">next(3)</div><div class="line">next(4)</div><div class="line">next(5)</div><div class="line">next(6)</div><div class="line">next(7)</div><div class="line">next(8)</div><div class="line">next(9)</div><div class="line">next(10)</div><div class="line">completed</div></pre></td></tr></table></figure>
+<ul>
+<li>repeatElement</li>
+</ul>
+<blockquote>
+<p>重复元素<br><a href="http://reactivex.io/documentation/operators/repeat.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;repeatElement&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.repeatElement(&quot;🔴&quot;)</div><div class="line">        .take(3)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- repeatElement example ---</div><div class="line">🔴</div><div class="line">🔴</div><div class="line">🔴</div></pre></td></tr></table></figure>
+<ul>
+<li>generate</li>
+</ul>
+<blockquote>
+<p>Creates an Observable sequence that generates values for as long as the provided condition evaluates to true</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;generate&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.generate(</div><div class="line">            initialState: 0,</div><div class="line">            condition: &#123; $0 &lt; 3 &#125;,</div><div class="line">            iterate: &#123; $0 + 1 &#125;</div><div class="line">        )</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- generate example ---</div><div class="line">0</div><div class="line">1</div><div class="line">2</div></pre></td></tr></table></figure>
+<ul>
+<li>deferred</li>
+</ul>
+<blockquote>
+<p>Creates a new Observable sequence for each subscriber<br><a href="http://reactivex.io/documentation/operators/defer.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;deferred&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    var count = 1</div><div class="line">    </div><div class="line">    let deferredSequence = Observable&lt;String&gt;.deferred &#123;</div><div class="line">        print(&quot;Creating \(count)&quot;)</div><div class="line">        count += 1</div><div class="line">        </div><div class="line">        return Observable.create &#123; observer in</div><div class="line">            print(&quot;Emitting...&quot;)</div><div class="line">            observer.onNext(&quot;🐶&quot;)</div><div class="line">            observer.onNext(&quot;🐱&quot;)</div><div class="line">            observer.onNext(&quot;🐵&quot;)</div><div class="line">            return Disposables.create()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    deferredSequence</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    deferredSequence</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- deferred example ---</div><div class="line">Creating 1</div><div class="line">Emitting...</div><div class="line">🐶</div><div class="line">🐱</div><div class="line">🐵</div><div class="line">Creating 2</div><div class="line">Emitting...</div><div class="line">🐶</div><div class="line">🐱</div><div class="line">🐵</div></pre></td></tr></table></figure>
+<ul>
+<li>error</li>
+</ul>
+<blockquote>
+<p>Creates an Observable sequence that emits no items and immediately terminates with an error.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;error&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">        </div><div class="line">    Observable&lt;Int&gt;.error(TestError.test)</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- error example ---</div><div class="line">error(test)</div></pre></td></tr></table></figure>
+<ul>
+<li>doOn</li>
+</ul>
+<blockquote>
+<p>Invokes a side-effect action for each emitted event and returns (passes through) the original event<br><a href="http://reactivex.io/documentation/operators/do.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;doOn&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🍎&quot;, &quot;🍐&quot;, &quot;🍊&quot;, &quot;🍋&quot;)</div><div class="line">        .do(onNext: &#123; print(&quot;Intercepted:&quot;, $0) &#125;, onError: &#123; print(&quot;Intercepted error:&quot;, $0) &#125;, onCompleted: &#123; print(&quot;Completed&quot;)  &#125;)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- doOn example ---</div><div class="line">Intercepted: 🍎</div><div class="line">🍎</div><div class="line">Intercepted: 🍐</div><div class="line">🍐</div><div class="line">Intercepted: 🍊</div><div class="line">🍊</div><div class="line">Intercepted: 🍋</div><div class="line">🍋</div><div class="line">Completed</div></pre></td></tr></table></figure>
+<h3 id="Subject"><a href="#Subject" class="headerlink" title=" Subject "></a><a id="Subject"> Subject </a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">extension ObservableType &#123;</div><div class="line">    </div><div class="line">    /**</div><div class="line">     Add observer with `id` and print each emitted event.</div><div class="line">     - parameter id: an identifier for the subscription.</div><div class="line">     */</div><div class="line">    func addObserver(_ id: String) -&gt; Disposable &#123;</div><div class="line">        return subscribe &#123; print(&quot;Subscription:&quot;, id, &quot;Event:&quot;, $0) &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>PublishSubject</li>
+</ul>
+<blockquote>
+<p>Broadcasts new events to all observers as of their time of the subscription. </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/publishsubject.png" alt="" title="PublishSubject"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;PublishSubject&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    let subject = PublishSubject&lt;String&gt;()</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;1&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🐶&quot;)</div><div class="line">    subject.onNext(&quot;🐱&quot;)</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;2&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🅰️&quot;)</div><div class="line">    subject.onNext(&quot;🅱️&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- PublishSubject example ---</div><div class="line">Subscription: 1 Event: next(🐶)</div><div class="line">Subscription: 1 Event: next(🐱)</div><div class="line">Subscription: 1 Event: next(🅰️)</div><div class="line">Subscription: 2 Event: next(🅰️)</div><div class="line">Subscription: 1 Event: next(🅱️)</div><div class="line">Subscription: 2 Event: next(🅱️)</div></pre></td></tr></table></figure>
+<ul>
+<li>ReplaySubject</li>
+</ul>
+<blockquote>
+<p>Broadcasts new events to all subscribers, and the specified bufferSize number of previous events to new subscribers.</p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/replaysubject.png" alt=""> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;ReplaySubject&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    let subject = ReplaySubject&lt;String&gt;.create(bufferSize: 1)</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;1&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🐶&quot;)</div><div class="line">    subject.onNext(&quot;🐱&quot;)</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;2&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🅰️&quot;)</div><div class="line">    subject.onNext(&quot;🅱️&quot;)</div><div class="line">&#125;</div><div class="line">--- ReplaySubject example ---</div><div class="line">Subscription: 1 Event: next(🐶)</div><div class="line">Subscription: 1 Event: next(🐱)</div><div class="line">Subscription: 2 Event: next(🐱)</div><div class="line">Subscription: 1 Event: next(🅰️)</div><div class="line">Subscription: 2 Event: next(🅰️)</div><div class="line">Subscription: 1 Event: next(🅱️)</div><div class="line">Subscription: 2 Event: next(🅱️)</div></pre></td></tr></table></figure>
+<ul>
+<li>BehaviorSubject</li>
+</ul>
+<blockquote>
+<p>Broadcasts new events to all subscribers, and the most recent (or initial) value to new subscribers. </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/behaviorsubject.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;BehaviorSubject&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    let subject = BehaviorSubject(value: &quot;🔴&quot;)</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;1&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🐶&quot;)</div><div class="line">    subject.onNext(&quot;🐱&quot;)</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;2&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🅰️&quot;)</div><div class="line">    subject.onNext(&quot;🅱️&quot;)</div><div class="line">    </div><div class="line">    subject.addObserver(&quot;3&quot;).disposed(by: disposeBag)</div><div class="line">    subject.onNext(&quot;🍐&quot;)</div><div class="line">    subject.onNext(&quot;🍊&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- BehaviorSubject example ---</div><div class="line">Subscription: 1 Event: next(🔴)</div><div class="line">Subscription: 1 Event: next(🐶)</div><div class="line">Subscription: 1 Event: next(🐱)</div><div class="line">Subscription: 2 Event: next(🐱)</div><div class="line">Subscription: 1 Event: next(🅰️)</div><div class="line">Subscription: 2 Event: next(🅰️)</div><div class="line">Subscription: 1 Event: next(🅱️)</div><div class="line">Subscription: 2 Event: next(🅱️)</div><div class="line">Subscription: 3 Event: next(🅱️)</div><div class="line">Subscription: 1 Event: next(🍐)</div><div class="line">Subscription: 2 Event: next(🍐)</div><div class="line">Subscription: 3 Event: next(🍐)</div><div class="line">Subscription: 1 Event: next(🍊)</div><div class="line">Subscription: 2 Event: next(🍊)</div><div class="line">Subscription: 3 Event: next(🍊)</div></pre></td></tr></table></figure>
+<ul>
+<li>Variable</li>
+</ul>
+<blockquote>
+<p>Wraps a BehaviorSubject, so it will emit the most recent (or initial) value to new subscribers. And Variable also maintains current value state. Variable will never emit an Error event. However, it will automatically emit a Completed event and terminate on deinit.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;Variable&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    let variable = Variable(&quot;🔴&quot;)</div><div class="line">    </div><div class="line">    variable.asObservable().addObserver(&quot;1&quot;).disposed(by: disposeBag)</div><div class="line">    variable.value = &quot;🐶&quot;</div><div class="line">    variable.value = &quot;🐱&quot;</div><div class="line">    </div><div class="line">    variable.asObservable().addObserver(&quot;2&quot;).disposed(by: disposeBag)</div><div class="line">    variable.value = &quot;🅰️&quot;</div><div class="line">    variable.value = &quot;🅱️&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- Variable example ---</div><div class="line">Subscription: 1 Event: next(🔴)</div><div class="line">Subscription: 1 Event: next(🐶)</div><div class="line">Subscription: 1 Event: next(🐱)</div><div class="line">Subscription: 2 Event: next(🐱)</div><div class="line">Subscription: 1 Event: next(🅰️)</div><div class="line">Subscription: 2 Event: next(🅰️)</div><div class="line">Subscription: 1 Event: next(🅱️)</div><div class="line">Subscription: 2 Event: next(🅱️)</div><div class="line">Subscription: 1 Event: completed</div><div class="line">Subscription: 2 Event: completed</div></pre></td></tr></table></figure>
+<h3 id="Combination-Operators"><a href="#Combination-Operators" class="headerlink" title=" Combination Operators "></a><a id="Combination"> Combination Operators </a></h3><ul>
+<li>startWith</li>
+</ul>
+<blockquote>
+<p>startWith 会在队列开始之前插入一个事件元素。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/startwith.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;startWith&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐶&quot;, &quot;🐱&quot;, &quot;🐭&quot;, &quot;🐹&quot;)</div><div class="line">        .startWith(&quot;1️⃣&quot;)</div><div class="line">        .startWith(&quot;2️⃣&quot;)</div><div class="line">        .startWith(&quot;3️⃣&quot;, &quot;🅰️&quot;, &quot;🅱️&quot;)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- startWith example ---</div><div class="line">3️⃣</div><div class="line">🅰️</div><div class="line">🅱️</div><div class="line">2️⃣</div><div class="line">1️⃣</div><div class="line">🐶</div><div class="line">🐱</div><div class="line">🐭</div><div class="line">🐹</div></pre></td></tr></table></figure>
+<ul>
+<li>merge</li>
+</ul>
+<blockquote>
+<p>merge 就是 merge 啦，把两个队列按照顺序组合在一起。<br><a href="http://reactivex.io/documentation/operators/merge.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/merge.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;merge&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let subject1 = PublishSubject&lt;String&gt;()</div><div class="line">    let subject2 = PublishSubject&lt;String&gt;()</div><div class="line">    </div><div class="line">    Observable.of(subject1, subject2)</div><div class="line">        .merge()</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    subject1.onNext(&quot;🅰️&quot;)</div><div class="line">    </div><div class="line">    subject1.onNext(&quot;🅱️&quot;)</div><div class="line">    </div><div class="line">    subject2.onNext(&quot;①&quot;)</div><div class="line">    </div><div class="line">    subject2.onNext(&quot;②&quot;)</div><div class="line">    </div><div class="line">    subject1.onNext(&quot;🆎&quot;)</div><div class="line">    </div><div class="line">    subject2.onNext(&quot;③&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- merge example ---</div><div class="line">🅰️</div><div class="line">🅱️</div><div class="line">①</div><div class="line">②</div><div class="line">🆎</div><div class="line">③</div></pre></td></tr></table></figure>
+<ul>
+<li>zip</li>
+</ul>
+<blockquote>
+<p>zip 人如其名，就是合并两条队列用的，不过它会等到两个队列的元素一一对应地凑齐了之后再合并<br><a href="http://reactivex.io/documentation/operators/zip.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/zip.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;zip&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let stringSubject = PublishSubject&lt;String&gt;()</div><div class="line">    let intSubject = PublishSubject&lt;Int&gt;()</div><div class="line">    </div><div class="line">    Observable.zip(stringSubject, intSubject) &#123; stringElement, intElement in</div><div class="line">        &quot;\(stringElement) \(intElement)&quot;</div><div class="line">        &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    stringSubject.onNext(&quot;🅰️&quot;)</div><div class="line">    stringSubject.onNext(&quot;🅱️&quot;)</div><div class="line">    </div><div class="line">    intSubject.onNext(1)</div><div class="line">    </div><div class="line">    intSubject.onNext(2)</div><div class="line">    </div><div class="line">    stringSubject.onNext(&quot;🆎&quot;)</div><div class="line">    intSubject.onNext(3)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- zip example ---</div><div class="line">🅰️ 1</div><div class="line">🅱️ 2</div><div class="line">🆎 3</div></pre></td></tr></table></figure>
+<ul>
+<li>combineLatest</li>
+</ul>
+<blockquote>
+<p>如果存在两条事件队列，需要同时监听，那么每当有新的事件发生的时候，combineLatest 会将每个队列的最新的一个元素进行合并<br><a href="http://reactivex.io/documentation/operators/combinelatest.html" target="_blank" rel="external">More info</a><br> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/combinelatest.png" alt=""></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;combineLatest&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let stringSubject = PublishSubject&lt;String&gt;()</div><div class="line">    let intSubject = PublishSubject&lt;Int&gt;()</div><div class="line">    </div><div class="line">    Observable.combineLatest(stringSubject, intSubject) &#123; stringElement, intElement in</div><div class="line">            &quot;\(stringElement) \(intElement)&quot;</div><div class="line">        &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    stringSubject.onNext(&quot;🅰️&quot;)</div><div class="line">    </div><div class="line">    stringSubject.onNext(&quot;🅱️&quot;)</div><div class="line">    intSubject.onNext(1)</div><div class="line">    </div><div class="line">    intSubject.onNext(2)</div><div class="line">    </div><div class="line">    stringSubject.onNext(&quot;🆎&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- combineLatest example ---</div><div class="line">🅱️ 1</div><div class="line">🅱️ 2</div><div class="line">🆎 2</div></pre></td></tr></table></figure>
+<ul>
+<li>switchLatest</li>
+</ul>
+<blockquote>
+<p>当你的事件序列是一个事件序列的序列 (Observable<observable<t>&gt;) 的时候，（可以理解成二维序列？），可以使用 switch 将序列的序列平铺成一维，并且在出现新的序列的时候，自动切换到最新的那个序列上。和 merge 相似的是，它也是起到了将多个序列『拍平』成一条序列的作用。<br>Transforms the elements emitted by an Observable sequence into Observable sequences, and emits elements from the most recent inner Observable sequence</observable<t></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/switch.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;switchLatest&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let subject1 = BehaviorSubject(value: &quot;⚽️&quot;)</div><div class="line">    let subject2 = BehaviorSubject(value: &quot;🍎&quot;)</div><div class="line">    </div><div class="line">    let variable = Variable(subject1)</div><div class="line">        </div><div class="line">    variable.asObservable()</div><div class="line">        .switchLatest()</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    subject1.onNext(&quot;🏈&quot;)</div><div class="line">    subject1.onNext(&quot;🏀&quot;)</div><div class="line">    </div><div class="line">    variable.value = subject2</div><div class="line">    </div><div class="line">    subject1.onNext(&quot;⚾️&quot;)</div><div class="line">    </div><div class="line">    subject2.onNext(&quot;🍐&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- switchLatest example ---</div><div class="line">⚽️</div><div class="line">🏈</div><div class="line">🏀</div><div class="line">🍎</div><div class="line">🍐</div></pre></td></tr></table></figure>
+<h3 id="Transforming-Operators"><a href="#Transforming-Operators" class="headerlink" title=" Transforming Operators "></a><a id="Transforming"> Transforming Operators </a></h3><ul>
+<li>map</li>
+</ul>
+<blockquote>
+<p>就是对每个元素都用函数做一次转换，挨个映射一遍</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/map.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;map&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    Observable.of(1, 2, 3)</div><div class="line">        .map &#123; $0 * $0 &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- map example ---</div><div class="line">1</div><div class="line">4</div><div class="line">9</div></pre></td></tr></table></figure>
+<ul>
+<li>flatMap</li>
+</ul>
+<blockquote>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/flatmap.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;flatMap and flatMapLatest&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    struct Player &#123;</div><div class="line">        var score: Variable&lt;Int&gt;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    let 👦🏻 = Player(score: Variable(80))</div><div class="line">    let 👧🏼 = Player(score: Variable(90))</div><div class="line">    </div><div class="line">    let player = Variable(👦🏻)</div><div class="line">    </div><div class="line">    player.asObservable()</div><div class="line">        .flatMap &#123; $0.score.asObservable() &#125; // Change flatMap to flatMapLatest and observe change in printed output</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    👦🏻.score.value = 85</div><div class="line">    </div><div class="line">    player.value = 👧🏼</div><div class="line">    </div><div class="line">    👦🏻.score.value = 95 // Will be printed when using flatMap, but will not be printed when using flatMapLatest</div><div class="line">    </div><div class="line">    👧🏼.score.value = 100</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>scan</li>
+</ul>
+<blockquote>
+<p>scan 它会把每次的运算结果累积起来，作为下一次运算的输入值。<br><a href="http://reactivex.io/documentation/operators/scan.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/scan.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;scan&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(10, 100, 1000)</div><div class="line">        .scan(1) &#123; aggregateValue, newValue in</div><div class="line">            aggregateValue + newValue</div><div class="line">        &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- scan example ---</div><div class="line">11</div><div class="line">111</div><div class="line">1111</div></pre></td></tr></table></figure>
+<h3 id="Filtering-and-Conditional-Operators"><a href="#Filtering-and-Conditional-Operators" class="headerlink" title=" Filtering and Conditional Operators "></a><a id="Filter_Conditional"> Filtering and Conditional Operators </a></h3><ul>
+<li>filter</li>
+</ul>
+<blockquote>
+<p>filter 只会让符合条件的元素通过。<br><a href="http://reactivex.io/documentation/operators/filter.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/filter.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;filter&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(</div><div class="line">        &quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;,</div><div class="line">        &quot;🐸&quot;, &quot;🐱&quot;, &quot;🐰&quot;,</div><div class="line">        &quot;🐹&quot;, &quot;🐸&quot;, &quot;🐱&quot;)</div><div class="line">        .filter &#123;</div><div class="line">            $0 == &quot;🐱&quot;</div><div class="line">        &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- filter example ---</div><div class="line">🐱</div><div class="line">🐱</div><div class="line">🐱</div></pre></td></tr></table></figure>
+<ul>
+<li>distinctUntilChanged</li>
+</ul>
+<blockquote>
+<p>会过滤掉重复的事件<a href="http://reactivex.io/documentation/operators/distinct.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/distinct.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;distinctUntilChanged&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐷&quot;, &quot;🐱&quot;, &quot;🐱&quot;, &quot;🐱&quot;, &quot;🐵&quot;, &quot;🐱&quot;)</div><div class="line">        .distinctUntilChanged()</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- distinctUntilChanged example ---</div><div class="line">🐱</div><div class="line">🐷</div><div class="line">🐱</div><div class="line">🐵</div><div class="line">🐱</div></pre></td></tr></table></figure>
+<ul>
+<li>elementAt</li>
+</ul>
+<blockquote>
+<p>指定index位置元素的事件<br><a href="http://reactivex.io/documentation/operators/elementat.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/elementat.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;elementAt&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .elementAt(3)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- elementAt example ---</div><div class="line">🐸</div></pre></td></tr></table></figure>
+<ul>
+<li>single</li>
+</ul>
+<blockquote>
+<p>Emits only the first element (or the first element that meets a condition) emitted by an Observable sequence. Will throw an error if the Observable sequence does not emit exactly one element.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;single&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .single()</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- single example ---</div><div class="line">🐱</div><div class="line">Received unhandled error: Filtering_and_Conditional_Operators.xcplaygroundpage:69:__lldb_expr_72 -&gt; Sequence contains more than one element.</div><div class="line"></div><div class="line">example(&quot;single with conditions&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .single &#123; $0 == &quot;🐸&quot; &#125;</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;)</div><div class="line">        .single &#123; $0 == &quot;🐰&quot; &#125;</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .single &#123; $0 == &quot;🔵&quot; &#125;</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- single with conditions example ---</div><div class="line">next(🐸)</div><div class="line">completed</div><div class="line">next(🐰)</div><div class="line">error(Sequence contains more than one element.)</div><div class="line">error(Sequence doesn&apos;t contain any elements.)</div></pre></td></tr></table></figure>
+<ul>
+<li>take</li>
+</ul>
+<blockquote>
+<p>take 只获取序列中的前 n 个事件，在满足数量之后会自动 .Completed<br><a href="http://reactivex.io/documentation/operators/take.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/take.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;take&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .take(3)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- take example ---</div><div class="line">🐱</div><div class="line">🐰</div><div class="line">🐶</div></pre></td></tr></table></figure>
+<ul>
+<li>takeLast</li>
+</ul>
+<blockquote>
+<p>takeLast 只获取序列中的后 n 个事件<br><a href="http://reactivex.io/documentation/operators/takelast.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/takelast.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;takeLast&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .takeLast(3)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- takeLast example ---</div><div class="line">🐸</div><div class="line">🐷</div><div class="line">🐵</div></pre></td></tr></table></figure>
+<ul>
+<li>takeWhile</li>
+</ul>
+<blockquote>
+<p>Emits elements from the beginning of an Observable sequence as long as the specified condition evaluates to true<br><a href="http://reactivex.io/documentation/operators/takewhile.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/takewhile.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;takeWhile&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(1, 2, 3, 4, 5, 6)</div><div class="line">        .takeWhile &#123; $0 &lt; 4 &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- takeWhile example ---</div><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td></tr></table></figure>
+<ul>
+<li>takeUntil</li>
+</ul>
+<blockquote>
+<p>直到 <a href="http://reactivex.io/documentation/operators/takeuntil.html" target="_blank" rel="external">More info</a><br> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/takeuntil.png" alt=""></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;takeUntil&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let sourceSequence = PublishSubject&lt;String&gt;()</div><div class="line">    let referenceSequence = PublishSubject&lt;String&gt;()</div><div class="line">    </div><div class="line">    sourceSequence</div><div class="line">        .takeUntil(referenceSequence)</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    sourceSequence.onNext(&quot;🐱&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐰&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐶&quot;)</div><div class="line">    </div><div class="line">    referenceSequence.onNext(&quot;🔴&quot;)</div><div class="line">    </div><div class="line">    sourceSequence.onNext(&quot;🐸&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐷&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐵&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- takeUntil example ---</div><div class="line">next(🐱)</div><div class="line">next(🐰)</div><div class="line">next(🐶)</div><div class="line">completed</div></pre></td></tr></table></figure>
+<ul>
+<li>skip</li>
+</ul>
+<blockquote>
+<p>跳过 <a href="http://reactivex.io/documentation/operators/skip.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/skip.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;skip&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .skip(2)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- skip example ---</div><div class="line">🐶</div><div class="line">🐸</div><div class="line">🐷</div><div class="line">🐵</div></pre></td></tr></table></figure>
+<ul>
+<li>skipWhile</li>
+</ul>
+<blockquote>
+<p>条件跳过<br><a href="http://reactivex.io/documentation/operators/skipwhile.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="http://reactivex.io/documentation/operators/images/skipWhile.c.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;skipWhile&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(1, 2, 3, 4, 5, 6)</div><div class="line">        .skipWhile &#123; $0 &lt; 4 &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line">--- skipWhile example ---</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td></tr></table></figure>
+<ul>
+<li>skipWhileWithIndex</li>
+</ul>
+<blockquote>
+<p>带index条件的跳过</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;skipWhileWithIndex&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(&quot;🐱&quot;, &quot;🐰&quot;, &quot;🐶&quot;, &quot;🐸&quot;, &quot;🐷&quot;, &quot;🐵&quot;)</div><div class="line">        .skipWhileWithIndex &#123; element, index in</div><div class="line">            index &lt; 3</div><div class="line">        &#125;</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- skipWhileWithIndex example ---</div><div class="line">🐸</div><div class="line">🐷</div><div class="line">🐵</div></pre></td></tr></table></figure>
+<ul>
+<li>skipUntil</li>
+</ul>
+<blockquote>
+<p>跳过, 直到…<br><a href="http://reactivex.io/documentation/operators/skipuntil.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/skipuntil.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;skipUntil&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let sourceSequence = PublishSubject&lt;String&gt;()</div><div class="line">    let referenceSequence = PublishSubject&lt;String&gt;()</div><div class="line">    </div><div class="line">    sourceSequence</div><div class="line">        .skipUntil(referenceSequence)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    sourceSequence.onNext(&quot;🐱&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐰&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐶&quot;)</div><div class="line">    </div><div class="line">    referenceSequence.onNext(&quot;🔴&quot;)</div><div class="line">    </div><div class="line">    sourceSequence.onNext(&quot;🐸&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐷&quot;)</div><div class="line">    sourceSequence.onNext(&quot;🐵&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- skipUntil example ---</div><div class="line">🐸</div><div class="line">🐷</div><div class="line">🐵</div></pre></td></tr></table></figure>
+<h3 id="Mathematical-and-Aggregate-Operators"><a href="#Mathematical-and-Aggregate-Operators" class="headerlink" title=" Mathematical and Aggregate Operators "></a><a id="Mathematial_Aggregate"> Mathematical and Aggregate Operators </a></h3><ul>
+<li>toArray</li>
+</ul>
+<blockquote>
+<p>Converts an Observable sequence into an array, emits that array as a new single-element Observable sequence, and then terminates<br><a href="http://reactivex.io/documentation/operators/to.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="http://reactivex.io/documentation/operators/images/to.c.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;toArray&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.range(start: 1, count: 10)</div><div class="line">        .toArray()</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- toArray example ---</div><div class="line">next([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])</div><div class="line">completed</div></pre></td></tr></table></figure>
+<ul>
+<li>reduce</li>
+</ul>
+<blockquote>
+<p>Begins with an initial seed value, and then applies an accumulator closure to all elements emitted by an Observable sequence, and returns the aggregate result as a single-element Observable sequence<br><a href="http://reactivex.io/documentation/operators/reduce.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/reduce.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;reduce&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    Observable.of(10, 100, 1000)</div><div class="line">        .reduce(1, accumulator: +)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- reduce example ---</div><div class="line">1111</div></pre></td></tr></table></figure>
+<ul>
+<li>concat</li>
+</ul>
+<blockquote>
+<p>concat 可以把多个事件序列合并起来。<br><a href="http://reactivex.io/documentation/operators/concat.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/concat.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;concat&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let subject1 = BehaviorSubject(value: &quot;🍎&quot;)</div><div class="line">    let subject2 = BehaviorSubject(value: &quot;🐶&quot;)</div><div class="line">    </div><div class="line">    let variable = Variable(subject1)</div><div class="line">    </div><div class="line">    variable.asObservable()</div><div class="line">        .concat()</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    subject1.onNext(&quot;🍐&quot;)</div><div class="line">    subject1.onNext(&quot;🍊&quot;)</div><div class="line">    </div><div class="line">    variable.value = subject2</div><div class="line">    </div><div class="line">    subject2.onNext(&quot;I would be ignored&quot;)</div><div class="line">    subject2.onNext(&quot;🐱&quot;)</div><div class="line">    </div><div class="line">    subject1.onCompleted()</div><div class="line">    </div><div class="line">    subject2.onNext(&quot;🐭&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- concat example ---</div><div class="line">next(🍎)</div><div class="line">next(🍐)</div><div class="line">next(🍊)</div><div class="line">next(🐱)</div><div class="line">next(🐭)</div></pre></td></tr></table></figure>
+<h3 id="Connectable-Operators"><a href="#Connectable-Operators" class="headerlink" title=" Connectable Operators "></a><a id="Connectable"> Connectable Operators </a></h3><blockquote>
+<p>without connectable operators</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">func sampleWithoutConnectableOperators() &#123;</div><div class="line">    printExampleHeader(#function)</div><div class="line">    </div><div class="line">    let interval = Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.instance)</div><div class="line">    </div><div class="line">    _ = interval</div><div class="line">        .subscribe(onNext: &#123; print(&quot;Subscription: 1, Event: \($0)&quot;) &#125;)</div><div class="line">    </div><div class="line">    delay(5) &#123;</div><div class="line">        _ = interval</div><div class="line">            .subscribe(onNext: &#123; print(&quot;Subscription: 2, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">sampleWithoutConnectableOperators()</div><div class="line"></div><div class="line"></div><div class="line">--- sampleWithoutConnectableOperators() example ---</div><div class="line">Subscription: 1, Event: 0</div><div class="line">Subscription: 1, Event: 1</div><div class="line">Subscription: 1, Event: 2</div><div class="line">Subscription: 1, Event: 3</div><div class="line">Subscription: 1, Event: 4</div><div class="line">Subscription: 1, Event: 5</div><div class="line">Subscription: 2, Event: 0</div><div class="line">Subscription: 1, Event: 6</div><div class="line">Subscription: 2, Event: 1</div><div class="line">Subscription: 1, Event: 7</div><div class="line">Subscription: 2, Event: 2</div></pre></td></tr></table></figure>
+<ul>
+<li>publish</li>
+</ul>
+<blockquote>
+<p>将事件源转换成可以连接的序列<br>Converts the source Observable sequence into a connectable sequence</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">func sampleWithPublish() &#123;</div><div class="line">    printExampleHeader(#function)</div><div class="line">    </div><div class="line">    let intSequence = Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.instance)</div><div class="line">        .publish()</div><div class="line">    </div><div class="line">    _ = intSequence</div><div class="line">        .subscribe(onNext: &#123; print(&quot;Subscription 1:, Event: \($0)&quot;) &#125;)</div><div class="line">    </div><div class="line">    delay(2) &#123; _ = intSequence.connect() &#125;</div><div class="line">    </div><div class="line">    delay(4) &#123;</div><div class="line">        _ = intSequence</div><div class="line">            .subscribe(onNext: &#123; print(&quot;Subscription 2:, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    delay(6) &#123;</div><div class="line">        _ = intSequence</div><div class="line">            .subscribe(onNext: &#123; print(&quot;Subscription 3:, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">sampleWithPublish()</div><div class="line"></div><div class="line"></div><div class="line">--- sampleWithPublish() example ---</div><div class="line">Subscription 1:, Event: 0</div><div class="line">Subscription 1:, Event: 1</div><div class="line">Subscription 2:, Event: 1</div><div class="line">Subscription 1:, Event: 2</div><div class="line">Subscription 2:, Event: 2</div><div class="line">Subscription 1:, Event: 3</div><div class="line">Subscription 2:, Event: 3</div><div class="line">Subscription 3:, Event: 3</div><div class="line">Subscription 1:, Event: 4</div><div class="line">Subscription 2:, Event: 4</div><div class="line">Subscription 3:, Event: 4</div><div class="line">Subscription 1:, Event: 5</div><div class="line">Subscription 2:, Event: 5</div><div class="line">Subscription 3:, Event: 5</div><div class="line">Subscription 1:, Event: 6</div><div class="line">Subscription 2:, Event: 6</div><div class="line">Subscription 3:, Event: 6</div><div class="line">Subscription 1:, Event: 7</div><div class="line">Subscription 2:, Event: 7</div><div class="line">Subscription 3:, Event: 7</div><div class="line">Subscription 1:, Event: 8</div><div class="line">Subscription 2:, Event: 8</div><div class="line">Subscription 3:, Event: 8</div></pre></td></tr></table></figure>
+<ul>
+<li>replay</li>
+</ul>
+<blockquote>
+<p>Converts the source Observable sequence into a connectable sequence, and will replay bufferSize number of previous emissions to each new subscriber</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">func sampleWithReplayBuffer() &#123;</div><div class="line">    printExampleHeader(#function)</div><div class="line">    </div><div class="line">    let intSequence = Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.instance)</div><div class="line">        .replay(5)</div><div class="line">    </div><div class="line">    _ = intSequence</div><div class="line">        .subscribe(onNext: &#123; print(&quot;Subscription 1:, Event: \($0)&quot;) &#125;)</div><div class="line">    </div><div class="line">    delay(2) &#123; _ = intSequence.connect() &#125;</div><div class="line">    </div><div class="line">    delay(4) &#123;</div><div class="line">        _ = intSequence</div><div class="line">            .subscribe(onNext: &#123; print(&quot;Subscription 2:, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    delay(8) &#123;</div><div class="line">        _ = intSequence</div><div class="line">            .subscribe(onNext: &#123; print(&quot;Subscription 3:, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">sampleWithReplayBuffer()</div><div class="line"></div><div class="line">--- sampleWithReplayBuffer() example ---</div><div class="line">Subscription 1:, Event: 0</div><div class="line">Subscription 2:, Event: 0</div><div class="line">Subscription 1:, Event: 1</div><div class="line">Subscription 2:, Event: 1</div><div class="line">Subscription 1:, Event: 2</div><div class="line">Subscription 2:, Event: 2</div><div class="line">Subscription 1:, Event: 3</div><div class="line">Subscription 2:, Event: 3</div><div class="line">Subscription 1:, Event: 4</div><div class="line">Subscription 2:, Event: 4</div><div class="line">Subscription 3:, Event: 0</div><div class="line">Subscription 3:, Event: 1</div><div class="line">Subscription 3:, Event: 2</div><div class="line">Subscription 3:, Event: 3</div><div class="line">Subscription 3:, Event: 4</div><div class="line">Subscription 1:, Event: 5</div><div class="line">Subscription 2:, Event: 5</div><div class="line">Subscription 3:, Event: 5</div></pre></td></tr></table></figure>
+<ul>
+<li>multicast</li>
+</ul>
+<blockquote>
+<p>Converts the source Observable sequence into a connectable sequence, and broadcasts its emissions via the specified subject.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">func sampleWithMulticast() &#123;</div><div class="line">    printExampleHeader(#function)</div><div class="line">    </div><div class="line">    let subject = PublishSubject&lt;Int&gt;()</div><div class="line">    </div><div class="line">    _ = subject</div><div class="line">        .subscribe(onNext: &#123; print(&quot;Subject: \($0)&quot;) &#125;)</div><div class="line">    </div><div class="line">    let intSequence = Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.instance)</div><div class="line">        .multicast(subject)</div><div class="line">    </div><div class="line">    _ = intSequence</div><div class="line">        .subscribe(onNext: &#123; print(&quot;\tSubscription 1:, Event: \($0)&quot;) &#125;)</div><div class="line">    </div><div class="line">    delay(2) &#123; _ = intSequence.connect() &#125;</div><div class="line">    </div><div class="line">    delay(4) &#123;</div><div class="line">        _ = intSequence</div><div class="line">            .subscribe(onNext: &#123; print(&quot;\tSubscription 2:, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    delay(6) &#123;</div><div class="line">        _ = intSequence</div><div class="line">            .subscribe(onNext: &#123; print(&quot;\tSubscription 3:, Event: \($0)&quot;) &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">sampleWithMulticast()</div><div class="line"></div><div class="line">--- sampleWithMulticast() example ---</div><div class="line">Subject: 0</div><div class="line">	Subscription 1:, Event: 0</div><div class="line">Subject: 1</div><div class="line">	Subscription 1:, Event: 1</div><div class="line">	Subscription 2:, Event: 1</div><div class="line">Subject: 2</div><div class="line">	Subscription 1:, Event: 2</div><div class="line">	Subscription 2:, Event: 2</div><div class="line">Subject: 3</div><div class="line">	Subscription 1:, Event: 3</div><div class="line">	Subscription 2:, Event: 3</div><div class="line">	Subscription 3:, Event: 3</div><div class="line">Subject: 4</div><div class="line">	Subscription 1:, Event: 4</div><div class="line">	Subscription 2:, Event: 4</div><div class="line">	Subscription 3:, Event: 4</div><div class="line">Subject: 5</div><div class="line">	Subscription 1:, Event: 5</div><div class="line">	Subscription 2:, Event: 5</div><div class="line">	Subscription 3:, Event: 5</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    效果同 </div><div class="line">    let intSequence = Observable&lt;Int&gt;.interval(1, scheduler: MainScheduler.instance)</div><div class="line">.publish()</div><div class="line">intSequence.subscribe(onNext: &#123; (int) in</div><div class="line">  subject.onNext(int)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Error-Handling-Operators"><a href="#Error-Handling-Operators" class="headerlink" title=" Error Handling Operators "></a><a id="Error_Handling"> Error Handling Operators </a></h3><ul>
+<li>catchErrorJustReturn</li>
+</ul>
+<blockquote>
+<p>Recovers from an Error event by returning an Observable sequence that emits a single element and then terminates<br><a href="http://reactivex.io/documentation/operators/catch.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/catch.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;catchErrorJustReturn&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let sequenceThatFails = PublishSubject&lt;String&gt;()</div><div class="line">    </div><div class="line">    sequenceThatFails</div><div class="line">        .catchErrorJustReturn(&quot;😊&quot;)</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    sequenceThatFails.onNext(&quot;😬&quot;)</div><div class="line">    sequenceThatFails.onNext(&quot;😨&quot;)</div><div class="line">    sequenceThatFails.onNext(&quot;😡&quot;)</div><div class="line">    sequenceThatFails.onNext(&quot;🔴&quot;)</div><div class="line">    sequenceThatFails.onError(TestError.test)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- catchErrorJustReturn example ---</div><div class="line">next(😬)</div><div class="line">next(😨)</div><div class="line">next(😡)</div><div class="line">next(🔴)</div><div class="line">next(😊)</div><div class="line">completed</div></pre></td></tr></table></figure>
+<ul>
+<li>catchError</li>
+</ul>
+<blockquote>
+<p>Recovers from an Error event by switching to the provided recovery Observable sequence<br><a href="http://reactivex.io/documentation/operators/catch.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/catch.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;catchError&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    let sequenceThatFails = PublishSubject&lt;String&gt;()</div><div class="line">    let recoverySequence = PublishSubject&lt;String&gt;()</div><div class="line">    </div><div class="line">    sequenceThatFails</div><div class="line">        .catchError &#123;</div><div class="line">            print(&quot;Error:&quot;, $0)</div><div class="line">            return recoverySequence</div><div class="line">        &#125;</div><div class="line">        .subscribe &#123; print($0) &#125;</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">    </div><div class="line">    sequenceThatFails.onNext(&quot;😬&quot;)</div><div class="line">    sequenceThatFails.onNext(&quot;😨&quot;)</div><div class="line">    sequenceThatFails.onNext(&quot;😡&quot;)</div><div class="line">    sequenceThatFails.onNext(&quot;🔴&quot;)</div><div class="line">    sequenceThatFails.onError(TestError.test)</div><div class="line">    </div><div class="line">    recoverySequence.onNext(&quot;😊&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- catchError example ---</div><div class="line">next(😬)</div><div class="line">next(😨)</div><div class="line">next(😡)</div><div class="line">next(🔴)</div><div class="line">Error: test</div><div class="line">next(😊)</div></pre></td></tr></table></figure>
+<ul>
+<li>retry</li>
+</ul>
+<blockquote>
+<p>Recovers repeatedly Error events by resubscribing to the Observable sequence, indefinitely.<br><a href="http://reactivex.io/documentation/operators/retry.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/retry.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;retry&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    var count = 1</div><div class="line">    </div><div class="line">    let sequenceThatErrors = Observable&lt;String&gt;.create &#123; observer in</div><div class="line">        observer.onNext(&quot;🍎&quot;)</div><div class="line">        observer.onNext(&quot;🍐&quot;)</div><div class="line">        observer.onNext(&quot;🍊&quot;)</div><div class="line">        </div><div class="line">        if count == 1 &#123;</div><div class="line">            observer.onError(TestError.test)</div><div class="line">            print(&quot;Error encountered&quot;)</div><div class="line">            count += 1</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        observer.onNext(&quot;🐶&quot;)</div><div class="line">        observer.onNext(&quot;🐱&quot;)</div><div class="line">        observer.onNext(&quot;🐭&quot;)</div><div class="line">        observer.onCompleted()</div><div class="line">        </div><div class="line">        return Disposables.create()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    sequenceThatErrors</div><div class="line">        .retry()</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- retry example ---</div><div class="line">🍎</div><div class="line">🍐</div><div class="line">🍊</div><div class="line">Error encountered</div><div class="line">🍎</div><div class="line">🍐</div><div class="line">🍊</div><div class="line">🐶</div><div class="line">🐱</div><div class="line">🐭</div></pre></td></tr></table></figure>
+<ul>
+<li>retry(_:)</li>
+</ul>
+<blockquote>
+<p>Recovers repeatedly from Error events by resubscribing to the Observable sequence, up to maxAttemptCount number of retries.<br><a href="http://reactivex.io/documentation/operators/retry.html" target="_blank" rel="external">More info</a></p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/kzaher/rxswiftcontent/master/MarbleDiagrams/png/retry.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;retry maxAttemptCount&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    var count = 1</div><div class="line">    </div><div class="line">    let sequenceThatErrors = Observable&lt;String&gt;.create &#123; observer in</div><div class="line">        observer.onNext(&quot;🍎&quot;)</div><div class="line">        observer.onNext(&quot;🍐&quot;)</div><div class="line">        observer.onNext(&quot;🍊&quot;)</div><div class="line">        </div><div class="line">        if count &lt; 5 &#123;</div><div class="line">            observer.onError(TestError.test)</div><div class="line">            print(&quot;Error encountered&quot;)</div><div class="line">            count += 1</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        observer.onNext(&quot;🐶&quot;)</div><div class="line">        observer.onNext(&quot;🐱&quot;)</div><div class="line">        observer.onNext(&quot;🐭&quot;)</div><div class="line">        observer.onCompleted()</div><div class="line">        </div><div class="line">        return Disposables.create()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    sequenceThatErrors</div><div class="line">        .retry(3)</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- retry maxAttemptCount example ---</div><div class="line">🍎</div><div class="line">🍐</div><div class="line">🍊</div><div class="line">Error encountered</div><div class="line">🍎</div><div class="line">🍐</div><div class="line">🍊</div><div class="line">Error encountered</div><div class="line">🍎</div><div class="line">🍐</div><div class="line">🍊</div><div class="line">Error encountered</div></pre></td></tr></table></figure>
+<h3 id="Debugging-Operators"><a href="#Debugging-Operators" class="headerlink" title=" Debugging Operators "></a><a id="Debugging"> Debugging Operators </a></h3><ul>
+<li>debug </li>
+</ul>
+<blockquote>
+<p>Prints out all subscriptions, events, and disposals.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;debug&quot;) &#123;</div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    var count = 1</div><div class="line">    </div><div class="line">    let sequenceThatErrors = Observable&lt;String&gt;.create &#123; observer in</div><div class="line">        observer.onNext(&quot;🍎&quot;)</div><div class="line">        observer.onNext(&quot;🍐&quot;)</div><div class="line">        observer.onNext(&quot;🍊&quot;)</div><div class="line">        </div><div class="line">        if count &lt; 5 &#123;</div><div class="line">            observer.onError(TestError.test)</div><div class="line">            print(&quot;Error encountered&quot;)</div><div class="line">            count += 1</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        observer.onNext(&quot;🐶&quot;)</div><div class="line">        observer.onNext(&quot;🐱&quot;)</div><div class="line">        observer.onNext(&quot;🐭&quot;)</div><div class="line">        observer.onCompleted()</div><div class="line">        </div><div class="line">        return Disposables.create()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    sequenceThatErrors</div><div class="line">        .retry(3)</div><div class="line">        .debug()</div><div class="line">        .subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">        .disposed(by: disposeBag)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- debug example ---</div><div class="line">2017-05-10 16:06:09.532: Debugging_Operators.xcplaygroundpage:42 (__lldb_expr_142) -&gt; subscribed</div><div class="line">2017-05-10 16:06:09.536: Debugging_Operators.xcplaygroundpage:42 (__lldb_expr_142) -&gt; Event next(🍎)</div><div class="line">🍎</div><div class="line">2017-05-10 16:06:09.537: Debugging_Operators.xcplaygroundpage:42 (__lldb_expr_142) -&gt; Event next(🍐)</div><div class="line">🍐</div></pre></td></tr></table></figure>
+<ul>
+<li>RxSwift.Resources.total</li>
+</ul>
+<blockquote>
+<p>Provides a count of all Rx resource allocations, which is useful for detecting leaks during development</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">example(&quot;RxSwift.Resources.total&quot;) &#123;</div><div class="line">    print(RxSwift.Resources.total)</div><div class="line">    </div><div class="line">    let disposeBag = DisposeBag()</div><div class="line">    </div><div class="line">    print(RxSwift.Resources.total)</div><div class="line">    </div><div class="line">    let variable = Variable(&quot;🍎&quot;)</div><div class="line">    </div><div class="line">    let subscription1 = variable.asObservable().subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">    </div><div class="line">    print(RxSwift.Resources.total)</div><div class="line">    </div><div class="line">    let subscription2 = variable.asObservable().subscribe(onNext: &#123; print($0) &#125;)</div><div class="line">    </div><div class="line">    print(RxSwift.Resources.total)</div><div class="line">    </div><div class="line">    subscription1.dispose()</div><div class="line">    </div><div class="line">    print(RxSwift.Resources.total)</div><div class="line">    </div><div class="line">    subscription2.dispose()</div><div class="line">    </div><div class="line">    print(RxSwift.Resources.total)</div><div class="line">&#125;</div><div class="line">    </div><div class="line">print(RxSwift.Resources.total)</div><div class="line"></div><div class="line">--- RxSwift.Resources.total example ---</div><div class="line">0</div><div class="line">2</div><div class="line">🍎</div><div class="line">8</div><div class="line">🍎</div><div class="line">10</div><div class="line">9</div><div class="line">8</div><div class="line">0</div></pre></td></tr></table></figure>
+<h3 id="Refer"><a href="#Refer" class="headerlink" title=" Refer "></a><a id="Refer"> Refer </a></h3><p><a href="https://blog.callmewhy.com/2015/09/21/rxswift-getting-started-0/" target="_blank" rel="external">入坑指南参考</a></p>
+<p><a href="https://github.com/ReactiveX/RxSwift" target="_blank" rel="external">RxSwift GitHub</a></p>
+<p><a href="http://rxmarbles.com" target="_blank" rel="external">RxMarbles</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxSwift/" rel="tag"># RxSwift</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/10/Swift入坑(二,设计模式--上) /" rel="next" title="Swift 入坑(二,设计模式--上)">
+                <i class="fa fa-chevron-left"></i> Swift 入坑(二,设计模式--上)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yang" />
+          <p class="site-author-name" itemprop="name">Yang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Content"><span class="nav-number">1.</span> <span class="nav-text">Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic"><span class="nav-number">2.</span> <span class="nav-text"> Basic  </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subject"><span class="nav-number">3.</span> <span class="nav-text"> Subject </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Combination-Operators"><span class="nav-number">4.</span> <span class="nav-text"> Combination Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transforming-Operators"><span class="nav-number">5.</span> <span class="nav-text"> Transforming Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filtering-and-Conditional-Operators"><span class="nav-number">6.</span> <span class="nav-text"> Filtering and Conditional Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mathematical-and-Aggregate-Operators"><span class="nav-number">7.</span> <span class="nav-text"> Mathematical and Aggregate Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connectable-Operators"><span class="nav-number">8.</span> <span class="nav-text"> Connectable Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Handling-Operators"><span class="nav-number">9.</span> <span class="nav-text"> Error Handling Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Debugging-Operators"><span class="nav-number">10.</span> <span class="nav-text"> Debugging Operators </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Refer"><span class="nav-number">11.</span> <span class="nav-text"> Refer </span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

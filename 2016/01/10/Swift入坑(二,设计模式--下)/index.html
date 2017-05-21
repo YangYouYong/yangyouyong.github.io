@@ -1,0 +1,928 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DesignPattern," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="引言在上一篇 我们介绍了类设计原则(SOLID原则),本篇将为您介绍常见的23种设计模式 在GOF的《设计模式：可复用面向对象软件的基础》一书中 作者根据设计模式在粒度和抽象层次的不同将设计模式如下划分     创 建 型 结 构 型 行 为 型     类 Factory Method Adapter(类) Interpreter  Template Method   对象 Abstract F">
+<meta name="keywords" content="DesignPattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 入坑(二,设计模式--下)">
+<meta property="og:url" content="http://yoursite.com/2016/01/10/Swift入坑(二,设计模式--下)/index.html">
+<meta property="og:site_name" content="cpbee&#39;s blog">
+<meta property="og:description" content="引言在上一篇 我们介绍了类设计原则(SOLID原则),本篇将为您介绍常见的23种设计模式 在GOF的《设计模式：可复用面向对象软件的基础》一书中 作者根据设计模式在粒度和抽象层次的不同将设计模式如下划分     创 建 型 结 构 型 行 为 型     类 Factory Method Adapter(类) Interpreter  Template Method   对象 Abstract F">
+<meta property="og:updated_time" content="2017-05-21T01:24:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 入坑(二,设计模式--下)">
+<meta name="twitter:description" content="引言在上一篇 我们介绍了类设计原则(SOLID原则),本篇将为您介绍常见的23种设计模式 在GOF的《设计模式：可复用面向对象软件的基础》一书中 作者根据设计模式在粒度和抽象层次的不同将设计模式如下划分     创 建 型 结 构 型 行 为 型     类 Factory Method Adapter(类) Interpreter  Template Method   对象 Abstract F">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/01/10/Swift入坑(二,设计模式--下)/"/>
+
+
+
+
+
+  <title>Swift 入坑(二,设计模式--下) | cpbee's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cpbee's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/10/Swift入坑(二,设计模式--下)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cpbee's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Swift 入坑(二,设计模式--下)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-10T14:30:00+08:00">
+                2016-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在上一篇 我们介绍了类设计原则(SOLID原则),<br>本篇将为您介绍常见的23种设计模式</p>
+<p>在GOF的<code>《设计模式：可复用面向对象软件的基础》</code>一书中 作者根据设计模式在粒度和抽象层次的不同将设计模式如下划分</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">创 建 型</th>
+<th style="text-align:center">结 构 型</th>
+<th style="text-align:center">行 为 型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">类</td>
+<td style="text-align:center"><a href="#1.1">Factory Method</a></td>
+<td style="text-align:center">Adapter(类)</td>
+<td style="text-align:center">Interpreter <br> Template Method</td>
+</tr>
+<tr>
+<td style="text-align:center">对象</td>
+<td style="text-align:center"><a href="#1.2">Abstract Factory</a> <br> <a href="#1.3">Builder</a> <br> <a href="#1.4">Prototype</a> <br> <a href="#1.5">Singleton</a></td>
+<td style="text-align:center"><a href="#2.1">Adapter(对象)</a> <br> <a href="#2.2">Bridge</a> <br> <a href="#2.3">Composite</a> <br> <a href="#2.4">Decorator</a> <br> <a href="#2.5">Facade</a><br> <a href="#2.6">Flyweight</a> <br> <a href="#2.7">Proxy</a></td>
+<td style="text-align:center"><a href="#3.1">Chain of Responsibility</a> <br> <a href="#3.2">Command</a> <br> Iterator <br> Mediator <br> Memento <br> <a href="#3.3">Observer</a> <br> <a href="#3.4">State</a> <br> <a href="#3.5">Strategy</a> <br> <a href="#3.6">Visitor</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1">23种设计模式</h3>
+
+<p></p><h3 id="1">1 创建型</h3><p></p>
+<h4 id="1.1">1.1 Factory Method 工厂方法模式</h4>
+
+<blockquote><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：定义一个用于创建对象的接口,让子类决定实例化哪一个类。 Factory Method使一个类的 实例化延迟到其子类。 <br><br></blockquote>
+
+<p>工厂方法模式是在简单工厂模式的基础上，对“工厂”添加了一个抽象层。将工厂共同的动作抽象出来，作为抽象类，而具体的行为由子类本身去实现，让子类去决定生产什么样的产品。</p>
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">protocol Currency &#123;</div><div class="line">    func symbol() -&gt; String</div><div class="line">    func code() -&gt; String</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Euro : Currency &#123;</div><div class="line">    func symbol() -&gt; String &#123;</div><div class="line">        return &quot;€&quot;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func code() -&gt; String &#123;</div><div class="line">        return &quot;EUR&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class USDolar : Currency &#123;</div><div class="line">    func symbol() -&gt; String &#123;</div><div class="line">        return &quot;$&quot;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func code() -&gt; String &#123;</div><div class="line">        return &quot;USD&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class RMB: Currency &#123;</div><div class="line">    func symbol() -&gt; String &#123;</div><div class="line">        return &quot;¥&quot;</div><div class="line">    &#125;</div><div class="line">    func code() -&gt; String &#123;</div><div class="line">        return &quot;RMB&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">enum Country &#123;</div><div class="line">    case US , Spain , UK , Greece , China</div><div class="line">&#125;</div><div class="line"></div><div class="line">class CurrencyFactory &#123;</div><div class="line">    class func currencyForCountry(country: Country) -&gt; Currency? &#123;</div><div class="line">        </div><div class="line">        switch country &#123;</div><div class="line">            case .Spain , .Greece :</div><div class="line">                return Euro()</div><div class="line">            case .US:</div><div class="line">                return USDolar()</div><div class="line">            case .China :</div><div class="line">                return RMB()</div><div class="line">            default:</div><div class="line">                return nil</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// Factory Method</div><div class="line">let noCurrencyCode = &quot;no currency code available&quot;</div><div class="line">print(CurrencyFactory.currencyForCountry(.China)?.code() ?? noCurrencyCode)</div><div class="line">print(CurrencyFactory.currencyForCountry(.UK)?.code() ?? noCurrencyCode)</div><div class="line">print(CurrencyFactory.currencyForCountry(.US)?.code() ?? noCurrencyCode)</div><div class="line">print(CurrencyFactory.currencyForCountry(.Spain)?.code() ?? noCurrencyCode)</div></pre></td></tr></table></figure>
+<h4 id="1.2">1.2 Abstract Factory 抽象工厂模式</h4>
+
+<blockquote><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：提供一个创建一系列相关或相互依赖对象的接口,而无需指定它们具体的类。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">protocol Decimal &#123;</div><div class="line">    func stringValue() -&gt; String</div><div class="line">    // Factory</div><div class="line">    static func make(string: String) -&gt; Decimal</div><div class="line">&#125;</div><div class="line"></div><div class="line">typealias NumberFactory = (String) -&gt; Decimal</div><div class="line">// Factories</div><div class="line">struct NextStepNumber: Decimal &#123;</div><div class="line">    private var nextNumber: NSNumber</div><div class="line">    func stringValue() -&gt; String &#123;</div><div class="line">        return nextNumber.stringValue</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    static func make(string: String) -&gt; Decimal &#123;</div><div class="line">        return NextStepNumber(nextNumber: NSNumber(longLong: (string as NSString).longLongValue))</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">struct SwiftNumber: Decimal &#123;</div><div class="line">    private var swiftInt: Int</div><div class="line">    func stringValue() -&gt; String &#123;</div><div class="line">        return &quot;\(swiftInt)&quot;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    static func make(string: String) -&gt; Decimal &#123;</div><div class="line">        return SwiftNumber(swiftInt: (string as NSString).integerValue)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Abstract Factory</div><div class="line"></div><div class="line">enum NumberType &#123;</div><div class="line">    case NextStep, Swift</div><div class="line">&#125;</div><div class="line"></div><div class="line">class NumberHelper &#123;</div><div class="line">    class func factoryFor(type: NumberType) -&gt; NumberFactory &#123;</div><div class="line">        switch type &#123;</div><div class="line">            case .NextStep:</div><div class="line">                return NextStepNumber.make</div><div class="line">            case .Swift:</div><div class="line">                return SwiftNumber.make</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// Abstract Factory</div><div class="line">let factoryOne = NumberHelper.factoryFor(.NextStep)</div><div class="line">let numberOne = factoryOne(&quot;1&quot;)</div><div class="line">print(numberOne.stringValue())</div><div class="line">    </div><div class="line">let factoryTwo = NumberHelper.factoryFor(.Swift)</div><div class="line">let numberTwo = factoryTwo(&quot;2&quot;)</div><div class="line">print(numberTwo.stringValue())</div></pre></td></tr></table></figure>
+<h4 id="1.3">1.3 Builder 建造模式</h4>
+
+<blockquote><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line">protocol DPCarBuilder &#123;</div><div class="line">    func createHeader()</div><div class="line">    </div><div class="line">    func createBody()</div><div class="line">    </div><div class="line">    func createWheel()</div><div class="line">    </div><div class="line">    func createEngine()</div><div class="line">    </div><div class="line">    func createStructure()</div><div class="line">    </div><div class="line">    func createPaint()</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPCarDirector &#123;</div><div class="line">    </div><div class="line">    private var _builder: DPCarBuilder? = nil;</div><div class="line">    </div><div class="line">    init?(builder: DPCarBuilder?) &#123;</div><div class="line">        if let _ = builder &#123;</div><div class="line">            _builder = builder</div><div class="line">        &#125;else&#123;</div><div class="line">            _builder = nil</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createCar() &#123;</div><div class="line">        _builder?.createHeader()</div><div class="line">        _builder?.createBody()</div><div class="line">        _builder?.createStructure()</div><div class="line">        _builder?.createEngine()</div><div class="line">        _builder?.createWheel()</div><div class="line">        _builder?.createPaint()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPRaceCarBuilder: DPCarBuilder &#123;</div><div class="line">    </div><div class="line">    func createHeader() &#123;</div><div class="line">        print(&quot;race car header&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createStructure() &#123;</div><div class="line">        print(&quot;race car structure&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createBody() &#123;</div><div class="line">        print(&quot;race car body&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createEngine() &#123;</div><div class="line">        print(&quot;race car engine&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createWheel() &#123;</div><div class="line">        print(&quot;race car wheel&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createPaint() &#123;</div><div class="line">        print(&quot;race car paint&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPTruckBuilder: DPCarBuilder &#123;</div><div class="line">    </div><div class="line">    func createHeader() &#123;</div><div class="line">        print(&quot;Truck header&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createStructure() &#123;</div><div class="line">        print(&quot;Truck structure&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createBody() &#123;</div><div class="line">        print(&quot;Truck body&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createEngine() &#123;</div><div class="line">        print(&quot;Truck engine&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createWheel() &#123;</div><div class="line">        print(&quot;Truck wheel&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func createPaint() &#123;</div><div class="line">        print(&quot;Truck paint&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let director = DPCarDirector(builder: DPRaceCarBuilder())</div><div class="line">director?.createCar()</div><div class="line"></div><div class="line">let raceDirector = DPCarDirector(builder: DPTruckBuilder())</div><div class="line">raceDirector?.createCar()</div></pre></td></tr></table></figure>
+<h4 id="1.4">1.4 Prototype 原型模式</h4>
+
+<blockquote><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。这这个定义中，最重要的一个词是“拷贝”，也就是口头上的复制，而这个拷贝，也就是原型模式的精髓所在。。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Display &#123;</div><div class="line">    var name: String?</div><div class="line">    let font: String</div><div class="line">    </div><div class="line">    init(font: String) &#123;</div><div class="line">        self.font = font</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func clone() -&gt; Display &#123;</div><div class="line">        return Display(font: self.font)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">let Prototype = Display(font: &quot;yayaDisplay&quot;)</div><div class="line">let Philippe = Prototype.clone()</div><div class="line">Philippe.name = &quot;Philippe&quot;</div><div class="line">    </div><div class="line">let Eduardo = Prototype.clone()</div><div class="line">Eduardo.name = &quot;Eduardo&quot;</div></pre></td></tr></table></figure>
+<h4 id="1.5">1.5 Singleton 单例模式</h4>
+
+<blockquote><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：保证一个类只有一个实例，并提供一个访问它的全局访问点。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">let _Singleton = DPSingleton()</div><div class="line"></div><div class="line">class DPSingleton &#123;</div><div class="line">    </div><div class="line">    class var shareInstance: DPSingleton &#123;</div><div class="line">        return _Singleton</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    class var defaultSingleton :DPSingleton &#123;</div><div class="line">        struct _Static &#123;</div><div class="line">            static let instance: DPSingleton = DPSingleton()</div><div class="line">        &#125;</div><div class="line">        return _Static.instance</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    class var dispatchInstance: DPSingleton &#123;</div><div class="line">        struct Static &#123;</div><div class="line">            static var onceToken: dispatch_once_t = 0</div><div class="line">            static var instance: DPSingleton? = nil</div><div class="line">        &#125;</div><div class="line">        dispatch_once(&amp;Static.onceToken) &#123;</div><div class="line">            Static.instance = DPSingleton()</div><div class="line">        &#125;</div><div class="line">        return Static.instance!</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let single = DPSingleton.shareInstance</div><div class="line">print(unsafeAddressOf(single))</div><div class="line">print(unsafeAddressOf(DPSingleton.shareInstance))</div></pre></td></tr></table></figure>
+<p></p><h3 id="2">2 结构型</h3><p></p>
+<h4 id="2.1">2.1 Adapter 适配器模式</h4>
+
+<blockquote><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">protocol TargetInterface &#123;</div><div class="line">    func getRequest() -&gt; Bool</div><div class="line">    func getResponse() -&gt; String</div><div class="line">&#125;</div><div class="line"></div><div class="line">class OriginalRequestManager: NSObject &#123;</div><div class="line">    var postRequest: Bool?</div><div class="line">    var postResponse: String?</div><div class="line">    init(request: Bool, response: String) &#123;</div><div class="line">        self.postRequest = request</div><div class="line">        self.postResponse = response</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPAdapterTarget: TargetInterface &#123;</div><div class="line">    private let target : OriginalRequestManager</div><div class="line">    func getRequest() -&gt; Bool &#123;</div><div class="line">        return self.target.postRequest!</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func getResponse() -&gt; String &#123;</div><div class="line">        return self.target.postResponse!</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    init(target: OriginalRequestManager) &#123;</div><div class="line">        self.target = target</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let target = OriginalRequestManager(request: false, response: &quot;this is a post response&quot;)</div><div class="line">let oldFormat = DPAdapterTarget(target: target)</div><div class="line"></div><div class="line">print(oldFormat.getRequest())</div><div class="line">print(oldFormat.getResponse())</div></pre></td></tr></table></figure>
+<h4 id="2.2">2.2 Bridge 桥接模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对桥接模式是这样说的：将抽象部分和它的实现部分分离，使它们都可以独立的变化。简单粗暴的说，就是抽象对外提供调用的接口；对外隐瞒实现部分，在抽象中引用实现部分，从而实现抽象对实现部分的调用，而抽象中引用的实现部分可以在今后的开发过程中，切换成别的实现部分。</blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">protocol Switch &#123;</div><div class="line">    var appliance: Appliance &#123;get set&#125;</div><div class="line">    func turnOn()</div><div class="line">&#125;</div><div class="line"></div><div class="line">protocol Appliance &#123;</div><div class="line">    func run()</div><div class="line">&#125;</div><div class="line"></div><div class="line">class RemoteControl: Switch &#123;</div><div class="line">    var appliance: Appliance</div><div class="line">    func turnOn() &#123;</div><div class="line">        self.appliance.run()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    init(appliance: Appliance) &#123;</div><div class="line">        self.appliance = appliance</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TV: Appliance &#123;</div><div class="line">    func run() &#123;</div><div class="line">        print(&quot;TV turn on&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class VacuumCleaner: Appliance &#123;</div><div class="line">    func run() &#123;</div><div class="line">        print(&quot;vacum cleaner turned on&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let tvRemoteControl = RemoteControl(appliance: TV())</div><div class="line">tvRemoteControl.turnOn()</div><div class="line">let fancyVacuumCleanerControl = RemoteControl(appliance: VacuumCleaner())</div><div class="line">fancyVacuumCleanerControl.turnOn()</div></pre></td></tr></table></figure>
+<h4 id="2.3">2.3 Composite 组合模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对组合模式是这样说的：将对象组合成树形结构以表示“部分-整体”的层次结构。组合（Composite）模式使得用户对单个对象和组合对象的使用具有一致性<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">protocol Shape &#123;</div><div class="line">    func draw(fillColor: UIColor)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Square: Shape &#123;</div><div class="line">    func draw(fillColor: UIColor) &#123;</div><div class="line">        print(&quot;Drawing a Square with color \(fillColor)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Circle: Shape &#123;</div><div class="line">    func draw(fillColor: UIColor) &#123;</div><div class="line">        print(&quot;Drawing a Circle with color \(fillColor)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Whiteboard: Shape &#123;</div><div class="line">    lazy var shapes = [Shape]()</div><div class="line">    init(_ shapes:Shape...)&#123;</div><div class="line">        self.shapes = shapes</div><div class="line">    &#125;</div><div class="line">    func draw(fillColor: UIColor) &#123;</div><div class="line">        for shape in self.shapes &#123;</div><div class="line">            shape.draw(fillColor)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let whiteboard = Whiteboard(Circle() ,Square())</div><div class="line">whiteboard.draw(UIColor.redColor())</div></pre></td></tr></table></figure>
+<h4 id="2.4">2.4 Decorator 装饰模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对装饰模式是这样说的：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator模式相比生成子类更为灵活。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">protocol Coffee &#123;</div><div class="line">    func getCost() -&gt; Double</div><div class="line">    func getIngredients() -&gt; String</div><div class="line">&#125;</div><div class="line"></div><div class="line">class SimpleCoffee:Coffee &#123;</div><div class="line">    func getCost() -&gt; Double &#123;</div><div class="line">        return 1.0</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func getIngredients() -&gt; String &#123;</div><div class="line">        return &quot;Coffee&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class CoffeeDecorator: Coffee &#123;</div><div class="line">    private let decoratedCoffee: Coffee</div><div class="line">    private let ingredientSeparator = &quot;, &quot;</div><div class="line">    </div><div class="line">    required init(decoratedCoffee: Coffee) &#123;</div><div class="line">        self.decoratedCoffee = decoratedCoffee</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func getCost() -&gt; Double &#123;</div><div class="line">        return decoratedCoffee.getCost()</div><div class="line">    &#125;</div><div class="line">    func getIngredients() -&gt; String &#123;</div><div class="line">        return decoratedCoffee.getIngredients()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Milk: CoffeeDecorator &#123;</div><div class="line">    required init(decoratedCoffee: Coffee) &#123;</div><div class="line">        super.init(decoratedCoffee: decoratedCoffee)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    override func getCost() -&gt; Double &#123;</div><div class="line">        return super.getCost() + 0.5</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    override func getIngredients() -&gt; String &#123;</div><div class="line">        return super.getIngredients() + ingredientSeparator + &quot;Milk&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class WhipCoffee: CoffeeDecorator &#123;</div><div class="line">    required init(decoratedCoffee: Coffee) &#123;</div><div class="line">        super.init(decoratedCoffee: decoratedCoffee)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    override func getCost() -&gt; Double &#123;</div><div class="line">        return super.getCost() + 0.7</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    override func getIngredients() -&gt; String &#123;</div><div class="line">        return super.getIngredients() + ingredientSeparator + &quot;Whip&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var someCoffee: Coffee = SimpleCoffee()</div><div class="line">print(&quot;cost: \(someCoffee.getCost()) , ingredients: \(someCoffee.getIngredients())&quot;)</div><div class="line">someCoffee = Milk(decoratedCoffee: someCoffee)</div><div class="line">print(&quot;cost: \(someCoffee.getCost()) , ingredients: \(someCoffee.getIngredients())&quot;)</div><div class="line">someCoffee = WhipCoffee(decoratedCoffee: someCoffee)</div><div class="line">print(&quot;cost: \(someCoffee.getCost()) , ingredients: \(someCoffee.getIngredients())&quot;)</div></pre></td></tr></table></figure>
+<h4 id="2.5">2.5 Facade 外观模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对外观模式是这样说的：将子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">class DPFund: NSObject &#123;</div><div class="line">    let stock1: DPStock1</div><div class="line">    let stock2: DPStock2</div><div class="line">    let stock3: DPStock3</div><div class="line">    </div><div class="line">    override init() &#123;</div><div class="line">        self.stock1 = DPStock1()</div><div class="line">        self.stock2 = DPStock2()</div><div class="line">        self.stock3 = DPStock3()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func buyFund() &#123;</div><div class="line">        self.stock1.buy()</div><div class="line">        self.stock2.buy()</div><div class="line">        self.stock3.buy()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func sellFund() &#123;</div><div class="line">        self.stock1.sell()</div><div class="line">        self.stock2.sell()</div><div class="line">        self.stock3.sell()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPStock1: NSObject&#123;</div><div class="line">    func buy() &#123;</div><div class="line">        print(&quot;buy stock1&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func sell() &#123;</div><div class="line">        print(&quot;sell stock1&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPStock2: NSObject&#123;</div><div class="line">    func buy() &#123;</div><div class="line">        print(&quot;buy stock2&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func sell() &#123;</div><div class="line">        print(&quot;sell stock2&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPStock3: NSObject&#123;</div><div class="line">    func buy() &#123;</div><div class="line">        print(&quot;buy stock3&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func sell() &#123;</div><div class="line">        print(&quot;sell stock3&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let fund = DPFund()</div><div class="line">fund.buyFund()</div><div class="line">fund.sellFund()</div></pre></td></tr></table></figure>
+<h4 id="2.6">2.6 Flyweight 享元模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对享元模式是这样说的：运用共享技术有效地支持大量细粒度的对象<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class DPUser: NSObject &#123;</div><div class="line">    let username: String</div><div class="line">    init(name: String) &#123;</div><div class="line">        self.username = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">protocol DPWebSite &#123;</div><div class="line">    func use(user: DPUser)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPConnectWebSite: DPWebSite &#123;</div><div class="line">    let webName: String</div><div class="line">    init(webName: String) &#123;</div><div class="line">        self.webName = webName</div><div class="line">    &#125;</div><div class="line">    func use(user: DPUser) &#123;</div><div class="line">        print(&quot;website name \(self.webName) , user \(user.username)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DPWebSitFactory: NSObject &#123;</div><div class="line">    lazy private var flyweights = [String: DPWebSite]()</div><div class="line">    func getWebSiteCategory(webKey: String) -&gt; DPWebSite &#123;</div><div class="line">        var webset: DPWebSite?</div><div class="line">        for (key, value) in self.flyweights &#123;</div><div class="line">            if (key == webKey) &#123;</div><div class="line">                webset = value</div><div class="line">                break</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if (webset == nil) &#123;</div><div class="line">            let connectSite = DPConnectWebSite(webName: webKey)</div><div class="line">            webset = connectSite</div><div class="line">            self.flyweights[webKey] = webset</div><div class="line">        &#125;</div><div class="line">        return webset!</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func getWebSiteCount() -&gt; NSInteger &#123;</div><div class="line">         return self.flyweights.count</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">let factory = DPWebSitFactory()</div><div class="line">let fx = factory.getWebSiteCategory(&quot;product&quot;)</div><div class="line">let user = DPUser(name: &quot;xiaocai&quot;)</div><div class="line">fx.use(user)</div><div class="line">    </div><div class="line">let fy = factory.getWebSiteCategory(&quot;category&quot;)</div><div class="line">let user1 = DPUser(name: &quot;xiaohua&quot;)</div><div class="line">fy.use(user1)</div><div class="line">    </div><div class="line">let user2 = DPUser(name: &quot;disanzhe&quot;)</div><div class="line">fy.use(user2)</div><div class="line">    </div><div class="line">print(&quot;count -- \(factory.getWebSiteCount())&quot;)</div></pre></td></tr></table></figure>
+<h4 id="2.7">2.7 Proxy 代理模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对代理模式是这样说的：为其他对象提供一种代理以控制对这个对象的访问<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">protocol Calculator &#123;</div><div class="line">    func calculate() -&gt; Float</div><div class="line">&#125;</div><div class="line"></div><div class="line">class CalculatorImpl: Calculator &#123;</div><div class="line">    func calculate() -&gt; Float &#123;</div><div class="line">        return 1.00</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Buyer: Calculator &#123;</div><div class="line">    lazy private var calculator: CalculatorImpl = CalculatorImpl()</div><div class="line">    func calculate() -&gt; Float &#123;</div><div class="line">        return calculator.calculate()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let buyer = Buyer()</div><div class="line">print(&quot;coast \(buyer.calculate())&quot;)</div></pre></td></tr></table></figure>
+<p></p><h3 id="3">3 行为型</h3><p></p>
+<h4 id="3.1">3.1 Chain Of Responsibility 责任链模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对职责链模式是这样说的：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，直到有一个对象处理它为止<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">// Chain PM &lt; PS &lt; DM</div><div class="line"></div><div class="line">protocol Manager &#123;</div><div class="line">    var m_handler:Manager? &#123;get set&#125;</div><div class="line">    func handleRequset(days: NSInteger) -&gt; Bool</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PM: Manager &#123;</div><div class="line">    var m_handler:Manager?</div><div class="line">    init(senior: Manager?) &#123;</div><div class="line">        self.m_handler = senior</div><div class="line">    &#125;</div><div class="line">    func handleRequset(days: NSInteger) -&gt; Bool &#123;</div><div class="line">        if days &lt;= 2 &#123;</div><div class="line">            print(&quot;PM said: OK&quot;)</div><div class="line">            return true</div><div class="line">        &#125;else&#123;</div><div class="line">            return self.m_handler!.handleRequset(days)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PS: Manager &#123;</div><div class="line">    var m_handler:Manager?</div><div class="line">    init(senior: Manager?) &#123;</div><div class="line">        self.m_handler = senior</div><div class="line">    &#125;</div><div class="line">    func handleRequset(days: NSInteger) -&gt; Bool &#123;</div><div class="line">        if days &lt;= 6 &#123;</div><div class="line">            print(&quot;PS said: OK&quot;)</div><div class="line">            return true</div><div class="line">        &#125;else&#123;</div><div class="line">            return self.m_handler!.handleRequset(days)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class DM: Manager &#123;</div><div class="line">    var m_handler:Manager?</div><div class="line">    init(senior: Manager?) &#123;</div><div class="line">        self.m_handler = senior</div><div class="line">    &#125;</div><div class="line">    func handleRequset(days: NSInteger) -&gt; Bool &#123;</div><div class="line">        if days &lt;= 10 &#123;</div><div class="line">            print(&quot;DM said: OK&quot;)</div><div class="line">            return true</div><div class="line">        &#125;else&#123;</div><div class="line">            return self.m_handler!.handleRequset(days)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class BOSS: Manager &#123;</div><div class="line">    var m_handler:Manager?</div><div class="line">    init(senior: Manager?) &#123;</div><div class="line">        self.m_handler = senior</div><div class="line">    &#125;</div><div class="line">    func handleRequset(days: NSInteger) -&gt; Bool &#123;</div><div class="line">        if days &lt;= 20 &#123;</div><div class="line">            print(&quot;BOSS said: OK&quot;)</div><div class="line">            return true</div><div class="line">        &#125;else&#123;</div><div class="line">            print(&quot;BOSS said: NO&quot;)</div><div class="line">            return false</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let pBoss = BOSS(senior: nil)</div><div class="line">let pDM = DM(senior: pBoss)</div><div class="line">let pPS = PS(senior: pDM)</div><div class="line">let pPM = PM(senior: pPS)</div><div class="line">    </div><div class="line">pPM.handleRequset(2)</div><div class="line">pPM.handleRequset(10)</div><div class="line">pPM.handleRequset(20)</div><div class="line">pPM.handleRequset(30)</div></pre></td></tr></table></figure>
+<h4 id="3.2">3.2 Command 命令模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对命令模式是这样说的：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤销的操作。在OOP中，一切都是对象，将请求封装成对象，符合OOP的设计思想，当将客户的单个请求封装成对象以后，我们就可以对这个请求存储更多的信息，使请求拥有更多的能力；命令模式同样能够把请求发送者和接收者解耦，使得命令发送者不用去关心请求将以何种方式被处理。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">protocol DoorCommand &#123;</div><div class="line">    func execute() -&gt;String</div><div class="line">&#125;</div><div class="line"></div><div class="line">class OpenCommand: DoorCommand &#123;</div><div class="line">    let doors: String</div><div class="line">    </div><div class="line">    required init(doors: String) &#123;</div><div class="line">        self.doors = doors</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func execute() -&gt; String &#123;</div><div class="line">        return &quot;Opened \(doors)&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class CloseCommand: DoorCommand &#123;</div><div class="line">    let doors: String</div><div class="line">    </div><div class="line">    required init(doors: String) &#123;</div><div class="line">        self.doors = doors</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func execute() -&gt; String &#123;</div><div class="line">        return &quot;Closed \(doors)&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class HALDoorOperations &#123;</div><div class="line">    let openCommand: DoorCommand</div><div class="line">    let closeCommand: DoorCommand</div><div class="line">    </div><div class="line">    init(doors: String) &#123;</div><div class="line">        self.openCommand = OpenCommand(doors: doors)</div><div class="line">        self.closeCommand = CloseCommand(doors: doors)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func close() -&gt;String &#123;</div><div class="line">        return closeCommand.execute()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func open() -&gt;String &#123;</div><div class="line">        return openCommand.execute()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let podDoors = &quot;Pod Doors&quot;</div><div class="line">let doorModule = HALDoorOperations(doors: podDoors)</div><div class="line">    </div><div class="line">print(doorModule.open())</div><div class="line">print(doorModule.close())</div></pre></td></tr></table></figure>
+<h4 id="3.3">3.3 Observer 观察者模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对观察者模式是这样说的：定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。当一个对象发生了变化，关注它的对象就会得到通知；这种交互也称为发布-订阅(publish-subscribe)。目标是通知的发布者，它发出通知时并不需要知道谁是它的观察者。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">protocol PropertyObserver : class &#123;</div><div class="line">    func willChangeProperty(propertyName: String, newPropertyValue: AnyObject?)</div><div class="line">    func didChangeProperty(propertyName: String, oldPropertyValue: AnyObject?)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TestChambers &#123;</div><div class="line">    weak var observer: PropertyObserver?</div><div class="line">    var testChamberNumber: Int = 0 &#123;</div><div class="line">        willSet &#123;</div><div class="line">            observer?.willChangeProperty(&quot;testChamberNumber&quot;, newPropertyValue: newValue)</div><div class="line">        &#125;</div><div class="line">        didSet &#123;</div><div class="line">            observer?.didChangeProperty(&quot;testChamberNumber&quot;, oldPropertyValue: oldValue)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Observer: PropertyObserver &#123;</div><div class="line">    func willChangeProperty(propertyName: String, newPropertyValue: AnyObject?) &#123;</div><div class="line">        if newPropertyValue as? Int == 1 &#123;</div><div class="line">            print(&quot;ok&quot;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func didChangeProperty(propertyName: String, oldPropertyValue: AnyObject?) &#123;</div><div class="line">        if oldPropertyValue as? Int == 0 &#123;</div><div class="line">            print(&quot;sorry&quot;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let observerInstance = Observer()</div><div class="line">let testChambers = TestChambers()</div><div class="line">testChambers.observer = observerInstance</div><div class="line">testChambers.testChamberNumber++</div></pre></td></tr></table></figure>
+<h4 id="3.4">3.4 State 状态模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对状态模式是这样说的：允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它的类。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">protocol State &#123;</div><div class="line">    func isAuthorized(context: Context) -&gt; Bool</div><div class="line">    func userId(context: Context) -&gt; String?</div><div class="line">&#125;</div><div class="line"></div><div class="line">class UnauthorizedState: State &#123;</div><div class="line">    func isAuthorized(context: Context) -&gt; Bool &#123; return false &#125;</div><div class="line">    func userId(context: Context) -&gt; String? &#123; return nil &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class AuthorizedState: State &#123;</div><div class="line">    let userId: String</div><div class="line">    init(userId: String) &#123;</div><div class="line">        self.userId = userId</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func isAuthorized(context: Context) -&gt; Bool &#123;</div><div class="line">        return true</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func userId(context: Context) -&gt; String? &#123;</div><div class="line">        return self.userId</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Context &#123;</div><div class="line">    private var state: State = UnauthorizedState()</div><div class="line">    var isAuthorized: Bool &#123;</div><div class="line">        get &#123;</div><div class="line">            return state.isAuthorized(self)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    var userId: String? &#123;</div><div class="line">        get &#123;</div><div class="line">            return state.userId(self)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func changeStateToAuthorized(userId: String) &#123;</div><div class="line">        state = AuthorizedState(userId: userId)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func changeToUnauthorized() &#123;</div><div class="line">        state = UnauthorizedState()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">let context = Context()</div><div class="line">print(context.isAuthorized , context.userId)</div><div class="line">context.changeStateToAuthorized(&quot;admin&quot;)</div><div class="line">print(context.isAuthorized , context.userId)</div><div class="line">context.changeToUnauthorized()</div><div class="line">print(context.isAuthorized , context.userId)</div></pre></td></tr></table></figure>
+<h4 id="3.5">3.5 Strategy  策略模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对策略模式是这样说的：定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。该模式使得算法可独立于使用它的客户而变化。<br></blockquote>
+
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">protocol PrintStrategy &#123;</div><div class="line">    func printString(string: String) -&gt; String</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Printer &#123;</div><div class="line">    let strategy: PrintStrategy</div><div class="line">    </div><div class="line">    func printString(string: String) -&gt; String &#123;</div><div class="line">        return self.strategy.printString(string)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    init(stragety: PrintStrategy) &#123;</div><div class="line">        self.strategy = stragety</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class UpperCaseStrategy: PrintStrategy &#123;</div><div class="line">    func printString(string: String) -&gt; String &#123;</div><div class="line">        return string.uppercaseString</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LowerCaseStrategy: PrintStrategy &#123;</div><div class="line">    func printString(string: String) -&gt; String &#123;</div><div class="line">        return string.lowercaseString</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let printString = &quot;O Operator , o operator&quot;</div><div class="line">let lower = Printer(stragety: LowerCaseStrategy())</div><div class="line">print(lower.printString(printString))</div><div class="line">let upper = Printer(stragety: UpperCaseStrategy())</div><div class="line">print(upper.printString(printString))</div></pre></td></tr></table></figure>
+<h4 id="3.6">3.6 Visitor  访问者模式</h4>
+
+<blockquote><br>在GOF的《设计模式:可复用面向对象软件的基础》一书中对访问者模式是这样说的：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。<br></blockquote>
+
+<ul>
+<li><strong>源码部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">protocol Visitor &#123;</div><div class="line">    </div><div class="line">    func visit(plannet: PlannetA)</div><div class="line">    func visit(plannet: PlannetB)</div><div class="line">    func visit(plannet: PlannetC)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PlannetVisitor: Visitor &#123;</div><div class="line">    func visit(plannet: PlannetA) &#123;</div><div class="line">        print(&quot;visit PlannetA&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func visit(plannet: PlannetB) &#123;</div><div class="line">        print(&quot;visit PlannetB&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func visit(plannet: PlannetC) &#123;</div><div class="line">        print(&quot;visit PlannetC&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">protocol Plannet &#123;</div><div class="line">    func accept(visitor: Visitor)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PlannetA: Plannet &#123;</div><div class="line">    func accept(visitor: Visitor) &#123;</div><div class="line">        visitor.visit(self)</div><div class="line">        print(&quot;PlannetA accept \(visitor)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PlannetB: Plannet &#123;</div><div class="line">    func accept(visitor: Visitor) &#123;</div><div class="line">        visitor.visit(self)</div><div class="line">        print(&quot;PlannetB accept \(visitor)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PlannetC: Plannet &#123;</div><div class="line">    func accept(visitor: Visitor) &#123;</div><div class="line">        visitor.visit(self)</div><div class="line">        print(&quot;PlannetC accept \(visitor)&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ObjectStructure &#123;</div><div class="line">    private var elements = [Plannet]()</div><div class="line">    func accept(v: Visitor) &#123;</div><div class="line">        let _ = elements.map &#123; (plannet:Plannet) in</div><div class="line">                plannet.accept(v)</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func addPlannet(plannet: Plannet) &#123;</div><div class="line">        elements.append(plannet)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>调用部分</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let Obj = ObjectStructure()</div><div class="line">let plannetA = PlannetA()</div><div class="line">let plannetB = PlannetB()</div><div class="line">let plannetC = PlannetC()</div><div class="line">    </div><div class="line">let visitor = PlannetVisitor()</div><div class="line">    </div><div class="line">Obj.addPlannet(plannetA)</div><div class="line">Obj.addPlannet(plannetB)</div><div class="line">Obj.addPlannet(plannetC)</div><div class="line">Obj.accept(visitor)</div></pre></td></tr></table></figure>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.jellythink.com/archives/878" target="_blank" rel="external">C++设计模式系列</a></p>
+<p><a href="http://www.cnblogs.com/lhws/archive/2012/03/10/2389189.html" target="_blank" rel="external">设计模式六大原则</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DesignPattern/" rel="tag"># DesignPattern</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/21/Swift入坑(一,基础部分)/" rel="next" title="Swift 入坑(一,基础部分)">
+                <i class="fa fa-chevron-left"></i> Swift 入坑(一,基础部分)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/10/Swift入坑(二,设计模式--上) /" rel="prev" title="Swift 入坑(二,设计模式--上)">
+                Swift 入坑(二,设计模式--上) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yang" />
+          <p class="site-author-name" itemprop="name">Yang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">2.</span> <span class="nav-text">23种设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">3.</span> <span class="nav-text">1 创建型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1.1"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 Factory Method 工厂方法模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1.2"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 Abstract Factory 抽象工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1.3"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 Builder 建造模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1.4"><span class="nav-number">3.4.</span> <span class="nav-text">1.4 Prototype 原型模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1.5"><span class="nav-number">3.5.</span> <span class="nav-text">1.5 Singleton 单例模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2"><span class="nav-number">4.</span> <span class="nav-text">2 结构型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2.1"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 Adapter 适配器模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2.2"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 Bridge 桥接模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2.3"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 Composite 组合模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2.4"><span class="nav-number">4.4.</span> <span class="nav-text">2.4 Decorator 装饰模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2.5"><span class="nav-number">4.5.</span> <span class="nav-text">2.5 Facade 外观模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2.6"><span class="nav-number">4.6.</span> <span class="nav-text">2.6 Flyweight 享元模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2.7"><span class="nav-number">4.7.</span> <span class="nav-text">2.7 Proxy 代理模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3"><span class="nav-number">5.</span> <span class="nav-text">3 行为型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3.1"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 Chain Of Responsibility 责任链模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3.2"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 Command 命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3.3"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 Observer 观察者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3.4"><span class="nav-number">5.4.</span> <span class="nav-text">3.4 State 状态模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3.5"><span class="nav-number">5.5.</span> <span class="nav-text">3.5 Strategy  策略模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3.6"><span class="nav-number">5.6.</span> <span class="nav-text">3.6 Visitor  访问者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">5.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

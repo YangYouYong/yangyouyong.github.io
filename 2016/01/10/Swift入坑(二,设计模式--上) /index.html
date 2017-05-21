@@ -1,0 +1,733 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DesignPattern," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="引言1,什么是设计模式 这里引用GOF的&amp;lt;设计模式-可复用面向对象软件的基础&amp;gt;  Christopher Alexander说过:“每一个模式描述了一个在我们周围不断重复发生的问题, 以及该问题的解决方案的核心。这样,你就能一次又一次地使用该方案而不必做重复劳动”.    模式就像一个模板,可应用于多种不同场合,所以解决方案并不描述一个特定 而具体的设计或实现,而是提供设计问题的抽象描">
+<meta name="keywords" content="DesignPattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 入坑(二,设计模式--上)">
+<meta property="og:url" content="http://yoursite.com/2016/01/10/Swift入坑(二,设计模式--上) /index.html">
+<meta property="og:site_name" content="cpbee&#39;s blog">
+<meta property="og:description" content="引言1,什么是设计模式 这里引用GOF的&amp;lt;设计模式-可复用面向对象软件的基础&amp;gt;  Christopher Alexander说过:“每一个模式描述了一个在我们周围不断重复发生的问题, 以及该问题的解决方案的核心。这样,你就能一次又一次地使用该方案而不必做重复劳动”.    模式就像一个模板,可应用于多种不同场合,所以解决方案并不描述一个特定 而具体的设计或实现,而是提供设计问题的抽象描">
+<meta property="og:updated_time" content="2017-05-21T01:22:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 入坑(二,设计模式--上)">
+<meta name="twitter:description" content="引言1,什么是设计模式 这里引用GOF的&amp;lt;设计模式-可复用面向对象软件的基础&amp;gt;  Christopher Alexander说过:“每一个模式描述了一个在我们周围不断重复发生的问题, 以及该问题的解决方案的核心。这样,你就能一次又一次地使用该方案而不必做重复劳动”.    模式就像一个模板,可应用于多种不同场合,所以解决方案并不描述一个特定 而具体的设计或实现,而是提供设计问题的抽象描">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/01/10/Swift入坑(二,设计模式--上) /"/>
+
+
+
+
+
+  <title>Swift 入坑(二,设计模式--上) | cpbee's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cpbee's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/10/Swift入坑(二,设计模式--上) /">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cpbee's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Swift 入坑(二,设计模式--上)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-10T14:30:00+08:00">
+                2016-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="1-什么是设计模式"><a href="#1-什么是设计模式" class="headerlink" title="1,什么是设计模式"></a>1,什么是设计模式</h4><ul>
+<li><p>这里引用GOF的<code>&lt;设计模式-可复用面向对象软件的基础&gt;</code><br>  Christopher Alexander说过:“每一个模式描述了一个在我们周围不断重复发生的问题, 以及该问题的解决方案的核心。这样,你就能一次又一次地使用该方案而不必做重复劳动”. </p>
+<p>  模式就像一个模板,可应用于多种不同场合,所以解决方案并不描述一个特定 而具体的设计或实现,而是提供设计问题的抽象描述和怎样用一个具有一般意义的元素组合(类或对象组合)来解决这个问题。</p>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>引用<code>&lt;Java与模式&gt;</code><br>  模式化的过程就是把问题抽象化，在忽略掉不重要的细节后，发现问题的一般性本质，并找到普遍适用的解决方案的过程。简而言之，人们在自己的环境中不断发现问题的解决方案的时候，发现有一些问题及其解决方案不断变换面孔出现，但这些不同的面孔有着共同的本质，这些本质就是模式.</li>
+</ul>
+<h4 id="2-为何设计模式"><a href="#2-为何设计模式" class="headerlink" title="2,为何设计模式"></a>2,为何设计模式</h4><ul>
+<li>设计模式都是前辈们经过多年的摸爬滚打总结出来的解决问题的抽象模板, 学习设计模式,就是学习它的idea. 站在巨人的肩膀上学习如何合理的组织代码，如何解耦，如何真正的达到对修改封闭对扩展开放的效果. 学习如何设计出可复用的,可维护的软件.</li>
+</ul>
+<h3 id="S-O-L-I-D-原则"><a href="#S-O-L-I-D-原则" class="headerlink" title="S.O.L.I.D 原则"></a>S.O.L.I.D 原则</h3><h4 id="1-单一职责原则"><a href="#1-单一职责原则" class="headerlink" title="1, 单一职责原则"></a>1, 单一职责原则</h4><ul>
+<li><p>定义: 类的职责要单一, 一个类只负责一个职责</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eg</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-里氏替换原则"><a href="#2-里氏替换原则" class="headerlink" title="2, 里氏替换原则"></a>2, 里氏替换原则</h4><ul>
+<li><p>定义: 所有引用基类的地方必须能透明地使用其子类的对象。</p>
+<p>  如果调用的是父类的话，那么换成子类也完全可以运行。 </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eg</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-依赖倒置原则"><a href="#3-依赖倒置原则" class="headerlink" title="3,依赖倒置原则"></a>3,依赖倒置原则</h4><ul>
+<li><p>定义: 高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该依赖细节；细节应该依赖抽象。</p>
+<p>依赖倒置原则的中心思想是面向接口编程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eg</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-接口隔离原则"><a href="#4-接口隔离原则" class="headerlink" title="4,接口隔离原则"></a>4,接口隔离原则</h4><ul>
+<li><p>定义: 客户端不应该依赖它不需要的接口；一个类对另一个类的依赖应该建立在最小的接口上。</p>
+<p>接口隔离原则的含义是: 建立单一接口，不要建立庞大臃肿的接口，尽量细化接口，接口中的方法尽量少。也就是说，我们要为各个类建立专用的接口，而不要试图去建立一个很庞大的接口供所有依赖它的类去调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eg</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="5-迪米法特原则"><a href="#5-迪米法特原则" class="headerlink" title="5,迪米法特原则"></a>5,迪米法特原则</h4><ul>
+<li><p>定义: 一个对象应该对其他对象保持最少的了解。</p>
+<p>  尽量降低类与类之间的耦合</p>
+</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eg</div></pre></td></tr></table></figure>
+<h4 id="6-开闭原则"><a href="#6-开闭原则" class="headerlink" title="6,开闭原则"></a>6,开闭原则</h4><ul>
+<li><p>定义: 一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。</p>
+<p>  当软件需要变化时，尽量通过扩展软件实体的行为来实现变化，而不是通过修改已有的代码来实现变化。</p>
+</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eg</div></pre></td></tr></table></figure>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h4><ul>
+<li>单一职责原则告诉我们实现类要职责单一；</li>
+<li>里氏替换原则告诉我们不要破坏继承体系；</li>
+<li>依赖倒置原则告诉我们要面向接口编程；</li>
+<li>接口隔离原则告诉我们在设计接口的时候要精简单一；</li>
+<li>迪米特法则告诉我们要降低耦合。</li>
+<li>而开闭原则是总纲，他告诉我们要对扩展开放，对修改关闭。</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://kb.cnblogs.com/page/99893/" target="_blank" rel="external">S.O.L.I.D.类设计原则</a></p>
+<p><a href="http://www.cnblogs.com/lhws/archive/2012/03/10/2389189.html" target="_blank" rel="external">设计模式六大原则</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DesignPattern/" rel="tag"># DesignPattern</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/10/Swift入坑(二,设计模式--下)/" rel="next" title="Swift 入坑(二,设计模式--下)">
+                <i class="fa fa-chevron-left"></i> Swift 入坑(二,设计模式--下)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/10/RxSwift 入坑(一)/" rel="prev" title="RxSwift 入坑(一)">
+                RxSwift 入坑(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yang" />
+          <p class="site-author-name" itemprop="name">Yang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是设计模式"><span class="nav-number">1.1.</span> <span class="nav-text">1,什么是设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-为何设计模式"><span class="nav-number">1.2.</span> <span class="nav-text">2,为何设计模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S-O-L-I-D-原则"><span class="nav-number">2.</span> <span class="nav-text">S.O.L.I.D 原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-单一职责原则"><span class="nav-number">2.1.</span> <span class="nav-text">1, 单一职责原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-里氏替换原则"><span class="nav-number">2.2.</span> <span class="nav-text">2, 里氏替换原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-依赖倒置原则"><span class="nav-number">2.3.</span> <span class="nav-text">3,依赖倒置原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-接口隔离原则"><span class="nav-number">2.4.</span> <span class="nav-text">4,接口隔离原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-迪米法特原则"><span class="nav-number">2.5.</span> <span class="nav-text">5,迪米法特原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-开闭原则"><span class="nav-number">2.6.</span> <span class="nav-text">6,开闭原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.7.</span> <span class="nav-text">小结:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">2.8.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
