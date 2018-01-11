@@ -1,0 +1,887 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RxSwift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="RxSwift GitHub RxCocoa APIS NSObject   Observe  123456789func showArticle() -&amp;gt; Observable&amp;lt;Bool&amp;gt; &amp;#123;        return articleModel.rx.observe(Int.self, &amp;quot;type&amp;quot;).map &amp;#123; optionalTyp">
+<meta name="keywords" content="RxSwift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift入坑(二)">
+<meta property="og:url" content="http://yoursite.com/2017/06/10/RxSwift 入坑(二)/index.html">
+<meta property="og:site_name" content="cpbee&#39;s blog">
+<meta property="og:description" content="RxSwift GitHub RxCocoa APIS NSObject   Observe  123456789func showArticle() -&amp;gt; Observable&amp;lt;Bool&amp;gt; &amp;#123;        return articleModel.rx.observe(Int.self, &amp;quot;type&amp;quot;).map &amp;#123; optionalTyp">
+<meta property="og:updated_time" content="2018-01-11T05:19:05.169Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxSwift入坑(二)">
+<meta name="twitter:description" content="RxSwift GitHub RxCocoa APIS NSObject   Observe  123456789func showArticle() -&amp;gt; Observable&amp;lt;Bool&amp;gt; &amp;#123;        return articleModel.rx.observe(Int.self, &amp;quot;type&amp;quot;).map &amp;#123; optionalTyp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/10/RxSwift 入坑(二)/"/>
+
+
+
+
+
+  <title>RxSwift入坑(二) | cpbee's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cpbee's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/10/RxSwift 入坑(二)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cpbee's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxSwift入坑(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T14:18:00+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/ReactiveX/RxSwift" target="_blank" rel="external">RxSwift GitHub</a></p>
+<h3 id="RxCocoa-APIS"><a href="#RxCocoa-APIS" class="headerlink" title="RxCocoa APIS"></a>RxCocoa APIS</h3><ul>
+<li>NSObject</li>
+</ul>
+<blockquote>
+<p>Observe</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">func showArticle() -&gt; Observable&lt;Bool&gt; &#123;</div><div class="line">        return articleModel.rx.observe(Int.self, &quot;type&quot;).map &#123; optionalType -&gt; Bool in</div><div class="line">            guard let type = optionalType else &#123;</div><div class="line">                return false</div><div class="line">            &#125;</div><div class="line">            return type == 0 ? true : false</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>UIActivityIndicatorView</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/// Bindable sink for `startAnimating()`, `stopAnimating()` methods.</div><div class="line">   public var isAnimating: UIBindingObserver&lt;Base, Bool&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIAlertAction</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Bindable sink for `enabled` property.</div><div class="line">public var isEnabled: UIBindingObserver&lt;Base, Bool&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIApplication</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Bindable sink for `networkActivityIndicatorVisible`.</div><div class="line">public var isNetworkActivityIndicatorVisible: UIBindingObserver&lt;Base, Bool&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIBarButtonItem</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/// Bindable sink for `enabled` property.</div><div class="line">    public var isEnabled: UIBindingObserver&lt;Base, Bool&gt;</div><div class="line">    </div><div class="line">/// Bindable sink for `title` property.</div><div class="line">    public var title: UIBindingObserver&lt;Base, String&gt;</div><div class="line"></div><div class="line">/// Reactive wrapper for target action pattern on `self`.</div><div class="line">    public var tap: ControlEvent&lt;Void&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIButton</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Reactive wrapper for `TouchUpInside` control event.</div><div class="line">    public var tap: ControlEvent&lt;Void&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UICollectionView</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public func items&lt;S: Sequence, O: ObservableType&gt;</div><div class="line">        (_ source: O)</div><div class="line">        -&gt; (_ cellFactory: @escaping (UICollectionView, Int, S.Iterator.Element) -&gt; UICollectionViewCell)</div><div class="line">        -&gt; Disposable where O.E == S</div><div class="line"> </div><div class="line"> public func setDataSource(_ dataSource: UICollectionViewDataSource)</div><div class="line">        -&gt; Disposable</div><div class="line"> </div><div class="line"> public var itemSelected: ControlEvent&lt;IndexPath&gt; </div><div class="line"> </div><div class="line"> public var itemDeselected: ControlEvent&lt;IndexPath&gt; </div><div class="line"> </div><div class="line"> public func modelSelected&lt;T&gt;(_ modelType: T.Type) -&gt; ControlEvent&lt;T&gt;</div><div class="line"> </div><div class="line"> public func modelDeselected&lt;T&gt;(_ modelType: T.Type) -&gt; ControlEvent&lt;T&gt;</div><div class="line"> </div><div class="line"> public func model&lt;T&gt;(at indexPath: IndexPath) throws -&gt; T</div></pre></td></tr></table></figure>
+<ul>
+<li>UIControl</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/// Bindable sink for `enabled` property.</div><div class="line">    public var isEnabled: UIBindingObserver&lt;Base, Bool&gt;</div><div class="line">    </div><div class="line">    /// Bindable sink for `selected` property.</div><div class="line">    public var isSelected: UIBindingObserver&lt;Base, Bool&gt;</div><div class="line">    </div><div class="line">    /// Reactive wrapper for target action pattern.</div><div class="line">    ///</div><div class="line">    /// - parameter controlEvents: Filter for observed event types.</div><div class="line">    public func controlEvent(_ controlEvents: UIControlEvents) -&gt; ControlEvent&lt;Void&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIDatePicker</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/// Reactive wrapper for `date` property.</div><div class="line">    public var date: ControlProperty&lt;Date&gt;</div><div class="line">    </div><div class="line">    /// Reactive wrapper for `date` property.</div><div class="line">    public var value: ControlProperty&lt;Date&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIGestureRecognizer</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Reactive wrapper for gesture recognizer events.</div><div class="line">    public var event: ControlEvent&lt;Base&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UIImageView</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Bindable sink for `image` property.</div><div class="line">public var image: UIBindingObserver&lt;Base, UIImage?&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UILabel</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/// Bindable sink for `text` property.</div><div class="line">    public var text: UIBindingObserver&lt;Base, String?&gt;</div><div class="line">    </div><div class="line">/// Bindable sink for `attributedText` property.</div><div class="line">	public var attributedText: UIBindingObserver&lt;Base, NSAttributedString?&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UINavigationController</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/// Reactive wrapper for delegate method `navigationController(:willShow:animated:)`.</div><div class="line">    public var willShow: ControlEvent&lt;ShowEvent&gt;</div><div class="line">    </div><div class="line">/// Reactive wrapper for delegate method `navigationController(:didShow:animated:)`.</div><div class="line">    public var didShow: ControlEvent&lt;ShowEvent&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>UINavigationItem</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Bindable sink for `title` property.</div><div class="line">    public var title: UIBindingObserver&lt;Base, String?&gt;</div></pre></td></tr></table></figure>
+<h3 id="RxCocoa-Highlighted-API"><a href="#RxCocoa-Highlighted-API" class="headerlink" title="RxCocoa Highlighted API"></a>RxCocoa Highlighted API</h3><ul>
+<li>bind</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">    Creates new subscription and sends elements to observer.</div><div class="line">    </div><div class="line">    In this form it&apos;s equivalent to `subscribe` method, but it communicates intent better, and enables</div><div class="line">    writing more consistent binding code.</div><div class="line">    </div><div class="line">    - parameter to: Observer that receives events.</div><div class="line">    - returns: Disposable object that can be used to unsubscribe the observer.</div><div class="line">    */</div><div class="line">    public func bind&lt;O: ObserverType&gt;(to observer: O) -&gt; Disposable where O.E == E &#123;</div><div class="line">        return self.subscribe(observer)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>example 1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> example(&quot;PublishSubject&quot;)&#123;</div><div class="line">            </div><div class="line">            // PublishSubject</div><div class="line">            </div><div class="line">            let subject = PublishSubject&lt;String&gt;()</div><div class="line">            let bindSubject = PublishSubject&lt;String&gt;()</div><div class="line">            </div><div class="line">            subject.addObserver(&quot;2&quot;).disposed(by: disposeBag)</div><div class="line">            </div><div class="line">            subject.bind(to: bindSubject).addDisposableTo(disposeBag)</div><div class="line">            </div><div class="line">            bindSubject.subscribe(onNext: &#123; (str) in</div><div class="line">                print(&quot;bind----\(str)&quot;)</div><div class="line">            &#125;).addDisposableTo(disposeBag)</div><div class="line">            </div><div class="line">            subject.onNext(&quot;🅱️&quot;)</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">--- PublishSubject example ---</div><div class="line"></div><div class="line">Subscription: 2 Event: next(🅱️)</div><div class="line">bind----🅱️</div></pre></td></tr></table></figure>
+<p>example 2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">cameraButton.rx.tap</div><div class="line">            .flatMapLatest &#123; [weak self] _ in</div><div class="line">                return UIImagePickerController.rx.createWithParent(self) &#123; picker in</div><div class="line">                    picker.sourceType = .camera</div><div class="line">                    picker.allowsEditing = false</div><div class="line">                &#125;</div><div class="line">                .flatMap &#123; $0.rx.didFinishPickingMediaWithInfo &#125;</div><div class="line">                .take(1)</div><div class="line">            &#125;</div><div class="line">            .map &#123; info in</div><div class="line">                return info[UIImagePickerControllerOriginalImage] as? UIImage</div><div class="line">            &#125;</div><div class="line">            .bind(to: imageView.rx.image)</div><div class="line">            .disposed(by: disposeBag)</div></pre></td></tr></table></figure>
+<ul>
+<li>UIBindingObserver</li>
+</ul>
+<blockquote>
+<p>RxCocoa UI组件值绑定核心</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">Observer that enforces interface binding rules:</div><div class="line"> * can&apos;t bind errors (in debug builds binding of errors causes `fatalError` in release builds errors are being logged)</div><div class="line"> * ensures binding is performed on main thread</div><div class="line"> </div><div class="line">`UIBindingObserver` doesn&apos;t retain target interface and in case owned interface element is released, element isn&apos;t bound.</div><div class="line"> </div><div class="line"> In case event binding is attempted from non main dispatch queue, event binding will be dispatched async to main dispatch</div><div class="line"> queue.</div><div class="line">*/</div><div class="line"></div><div class="line">public final class UIBindingObserver&lt;UIElementType, Value&gt; : ObserverType where UIElementType: AnyObject &#123;</div><div class="line">    public typealias E = Value</div><div class="line"></div><div class="line">    weak var UIElement: UIElementType?</div><div class="line"></div><div class="line">    let binding: (UIElementType, Value) -&gt; Void</div><div class="line"></div><div class="line">    /// Initializes `ViewBindingObserver` using</div><div class="line">    public init(UIElement: UIElementType, binding: @escaping (UIElementType, Value) -&gt; Void) &#123;</div><div class="line">        self.UIElement = UIElement</div><div class="line">        self.binding = binding</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// Binds next element to owner view as described in `binding`.</div><div class="line">    public func on(_ event: Event&lt;Value&gt;) &#123;</div><div class="line">        if !DispatchQueue.isMain &#123;</div><div class="line">            DispatchQueue.main.async &#123;</div><div class="line">                self.on(event)</div><div class="line">            &#125;</div><div class="line">            return</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        switch event &#123;</div><div class="line">        case .next(let element):</div><div class="line">            if let view = self.UIElement &#123;</div><div class="line">                binding(view, element)</div><div class="line">            &#125;</div><div class="line">        case .error(let error):</div><div class="line">            bindingErrorToInterface(error)</div><div class="line">        case .completed:</div><div class="line">            break</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// Erases type of observer.</div><div class="line">    ///</div><div class="line">    /// - returns: type erased observer.</div><div class="line">    public func asObserver() -&gt; AnyObserver&lt;Value&gt; &#123;</div><div class="line">        return AnyObserver(eventHandler: on)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">UIControl+Rx</div><div class="line"></div><div class="line">/// Bindable sink for `enabled` property.</div><div class="line">    public var isEnabled: UIBindingObserver&lt;Base, Bool&gt; &#123;</div><div class="line">        return UIBindingObserver(UIElement: self.base) &#123; (owner, value) in</div><div class="line">            owner.isEnabled = value</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">let control = UIControl(frame: CGRect(x: 0, y: 0, width: 1, height: 1))</div><div class="line">        </div><div class="line">          _ = Observable.just(true).bind(to: control.rx.isEnabled)</div></pre></td></tr></table></figure>
+<ul>
+<li>ControlEvent</li>
+</ul>
+<blockquote>
+<p>RxCocoa UI组件点击事件绑定核心</p>
+<p>类定义</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/// Protocol that enables extension of `ControlEvent`.</div><div class="line">public protocol ControlEventType : ObservableType &#123;</div><div class="line"></div><div class="line">    /// - returns: `ControlEvent` interface</div><div class="line">    func asControlEvent() -&gt; ControlEvent&lt;E&gt;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line">    Trait for `Observable`/`ObservableType` that represents event on UI element.</div><div class="line"></div><div class="line">    It&apos;s properties are:</div><div class="line"></div><div class="line">    - it never fails</div><div class="line">    - it won&apos;t send any initial value on subscription</div><div class="line">    - it will `Complete` sequence on control being deallocated</div><div class="line">    - it never errors out</div><div class="line">    - it delivers events on `MainScheduler.instance`</div><div class="line"></div><div class="line">    **The implementation of `ControlEvent` will ensure that sequence of events is being subscribed on main scheduler</div><div class="line">     (`subscribeOn(ConcurrentMainScheduler.instance)` behavior).**</div><div class="line"></div><div class="line">    **It is implementor&apos;s responsibility to make sure that that all other properties enumerated above are satisfied.**</div><div class="line"></div><div class="line">    **If they aren&apos;t, then using this trait communicates wrong properties and could potentially break someone&apos;s code.**</div><div class="line"></div><div class="line">    **In case `events` observable sequence that is being passed into initializer doesn&apos;t satisfy all enumerated</div><div class="line">     properties, please don&apos;t use this unit.**</div><div class="line">*/</div><div class="line">public struct ControlEvent&lt;PropertyType&gt; : ControlEventType &#123;</div><div class="line">    public typealias E = PropertyType</div><div class="line"></div><div class="line">    let _events: Observable&lt;PropertyType&gt;</div><div class="line"></div><div class="line">    /// Initializes control event with a observable sequence that represents events.</div><div class="line">    ///</div><div class="line">    /// - parameter events: Observable sequence that represents events.</div><div class="line">    /// - returns: Control event created with a observable sequence of events.</div><div class="line">    public init&lt;Ev: ObservableType&gt;(events: Ev) where Ev.E == E &#123;</div><div class="line">        _events = events.subscribeOn(ConcurrentMainScheduler.instance)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// Subscribes an observer to control events.</div><div class="line">    ///</div><div class="line">    /// - parameter observer: Observer to subscribe to events.</div><div class="line">    /// - returns: Disposable object that can be used to unsubscribe the observer from receiving control events.</div><div class="line">    public func subscribe&lt;O : ObserverType&gt;(_ observer: O) -&gt; Disposable where O.E == E &#123;</div><div class="line">        return _events.subscribe(observer)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// - returns: `Observable` interface.</div><div class="line">    public func asObservable() -&gt; Observable&lt;E&gt; &#123;</div><div class="line">        return _events</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// - returns: `ControlEvent` interface.</div><div class="line">    public func asControlEvent() -&gt; ControlEvent&lt;E&gt; &#123;</div><div class="line">        return self</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>封装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/// Reactive wrapper for target action pattern.</div><div class="line">    ///</div><div class="line">    /// - parameter controlEvents: Filter for observed event types.</div><div class="line">    public func controlEvent(_ controlEvents: UIControlEvents) -&gt; ControlEvent&lt;Void&gt; &#123;</div><div class="line">        let source: Observable&lt;Void&gt; = Observable.create &#123; [weak control = self.base] observer in</div><div class="line">            MainScheduler.ensureExecutingOnScheduler()</div><div class="line"></div><div class="line">            guard let control = control else &#123;</div><div class="line">                observer.on(.completed)</div><div class="line">                return Disposables.create()</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            let controlTarget = ControlTarget(control: control, controlEvents: controlEvents) &#123;</div><div class="line">                control in</div><div class="line">                observer.on(.next())</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            return Disposables.create(with: controlTarget.dispose)</div><div class="line">        &#125;.takeUntil(deallocated)</div><div class="line"></div><div class="line">        return ControlEvent(events: source)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">extension Reactive where Base: UIButton &#123;</div><div class="line">    </div><div class="line">    /// Reactive wrapper for `TouchUpInside` control event.</div><div class="line">    public var tap: ControlEvent&lt;Void&gt; &#123;</div><div class="line">        return controlEvent(.touchUpInside)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Driver</li>
+</ul>
+<blockquote>
+<p>用法同 bind(to )</p>
+<p>专门针对于UI的特定可观察者类</p>
+</blockquote>
+<p>特性</p>
+<blockquote>
+<p>它不会发射出错误(Error)事件</p>
+<p>对它的观察订阅是发生在主线程(UI线程)的</p>
+<p>自带shareReplayLatestWhileConnected </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> Trait that represents observable sequence with following properties:</div><div class="line"></div><div class="line"> - it never fails</div><div class="line"> - it delivers events on `MainScheduler.instance`</div><div class="line"> - `shareReplayLatestWhileConnected()` behavior</div><div class="line"> - all observers share sequence computation resources</div><div class="line"> - it&apos;s stateful, upon subscription (calling subscribe) last element is immediatelly replayed if it was produced</div><div class="line"> - computation of elements is reference counted with respect to the number of observers</div><div class="line"> - if there are no subscribers, it will release sequence computation resources</div><div class="line"></div><div class="line"> `Driver&lt;Element&gt;` can be considered a builder pattern for observable sequences that drive the application.</div><div class="line"></div><div class="line"> If observable sequence has produced at least one element, after new subscription is made last produced element will be</div><div class="line"> immediately replayed on the same thread on which the subscription was made.</div><div class="line"></div><div class="line"> When using `drive*`, `subscribe*` and `bind*` family of methods, they should always be called from main thread.</div><div class="line"></div><div class="line"> If `drive*`, `subscribe*` and `bind*` are called from background thread, it is possible that initial replay</div><div class="line"> will happen on background thread, and subsequent events will arrive on main thread.</div><div class="line"></div><div class="line"> To find out more about traits and how to use them, please visit `Documentation/Traits.md`.</div><div class="line"> */</div><div class="line">public typealias Driver&lt;E&gt; = SharedSequence&lt;DriverSharingStrategy, E&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">asDriver(onErrorJustReturn onErrorJustReturn: Self.E)</div><div class="line"></div><div class="line">asDriver(onErrorDriveWith onErrorDriveWith: RxCocoa.Driver&lt;Self.E&gt;)</div><div class="line"></div><div class="line">asDriver(onErrorRecover onErrorRecover: (error: ErrorType) -&gt; RxCocoa.Driver&lt;Self.E&gt;)</div></pre></td></tr></table></figure>
+<ul>
+<li>DisposeBag</li>
+</ul>
+<blockquote>
+<p>类似于Objective-C ARC中的自动释放池机制。</p>
+<p>方法addDisposableTo会对DisposeBag进行弱引用，所以这个DisposeBag要被实例引用着，一般可作为实例的成员变量，当实例被销毁了，成员DisposeBag会跟着销毁，从而使得RxSwift在此实例上绑定的资源得到释放。</p>
+</blockquote>
+<!--### 补充: Objective-C的消息传递
+
+[从源代码看 ObjC 中消息的发送](http://draveness.me/message.html)
+
+[深入解析 ObjC 中方法的结构](http://draveness.me/method-struct.html)
+
+#### 基本消息传递
+
+> 在面向对象编程中，对象调用方法叫做发送消息。
+> 在编译时，程序的源代码就会从对象发送消息转换成Runtime的objc_msgSend函数调用。
+> 例如某实例变量receiver实现某一个方法oneMethod
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[receiver oneMethod];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Runtime会将其转成类似这样的代码</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(receiver, selector);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>具体的Runtime会根据类型自动转换成下列某一个函数：</p>
+<p>objc_msgSend:普通的消息都会通过该函数发送</p>
+<p>objc_msgSend_stret:消息中有数据结构作为返回值（不是简单值）时，通过此函数发送和接收返回值</p>
+<p>objc_msgSendSuper:和objc_msgSend类似，这里把消息发送给父类的实例</p>
+<p>objc_msgSendSuper_stret:和objc_msgSend_stret类似，这里把消息发送给父类的实例并接收返回值</p>
+</blockquote>
+<p><img src="https://www.ianisme.com/wp-content/uploads/2016/01/objective-runtime-2.png" alt="message"></p>
+<ul>
+<li>objc_msgSend函数的调用过程：</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>第一步：检测这个selector是不是要忽略的。</p>
+</li>
+<li><p>第二步：检测这个target是不是nil对象。nil对象发送任何一个消息都会被忽略掉。</p>
+</li>
+<li>第三步：<pre><code>* 1.调用实例方法时，它会首先在自身isa指针指向的类（class）methodLists中查找该方法，如果找不到则会通过class的super_class指针找到父类的类对象结构体，然后从methodLists中查找该方法，如果仍然找不到，则继续通过super_class向上一级父类结构体中查找，直至根class；
+* 2.当我们调用某个某个类方法时，它会首先通过自己的isa指针找到metaclass，并从其中methodLists中查找该类方法，如果找不到则会通过metaclass的super_class指针找到父类的metaclass对象结构体，然后从methodLists中查找该方法，如果仍然找不到，则继续通过super_class向上一级父类结构体中查找，直至根metaclass；
+</code></pre></li>
+<li>第四部：前三部都找不到就会进入动态方法解析</li>
+</ul>
+</blockquote>
+<h4 id="消息动态解析"><a href="#消息动态解析" class="headerlink" title="消息动态解析"></a>消息动态解析</h4><ul>
+<li>动态解析流程图</li>
+</ul>
+<p><img src="https://www.ianisme.com/wp-content/uploads/2016/01/objective-runtime-6.png" alt="动态解析流程图"></p>
+<blockquote>
+<ul>
+<li>第一步：通过resolveInstanceMethod：方法决定是否动态添加方法。如果返回Yes则通过class_addMethod动态添加方法，消息得到处理，结束；如果返回No，则进入下一步；</li>
+<li>第二步：这步会进入forwardingTargetForSelector:方法，用于指定备选对象响应这个selector，不能指定为self。如果返回某个对象则会调用对象的方法，结束。如果返回nil，则进入第三部；</li>
+<li>第三部：这步我们要通过methodSignatureForSelector:方法签名，如果返回nil，则消息无法处理。如果返回methodSignature，则进入下一步；</li>
+<li>第四部：这步调用forwardInvocation：方法，我们可以通过anInvocation对象做很多处理，比如修改实现方法，修改响应对象等，如果方法调用成功，则结束。如果失败，则进入doesNotRecognizeSelector方法，若我们没有实现这个方法，那么就会crash。–&gt;</li>
+</ul>
+</blockquote>
+<h3 id="RxSwift-中的DelegateProxy"><a href="#RxSwift-中的DelegateProxy" class="headerlink" title="RxSwift 中的DelegateProxy"></a>RxSwift 中的DelegateProxy</h3><ul>
+<li>proxy 流程图</li>
+</ul>
+<p><img src="http://stage.welltang.com:8086/yangyouyong/welltangresources/raw/master/RxSwiftDelegateProxy.png" alt="作用流程图"></p>
+<ul>
+<li>具体关系及方法响应 (UITableViewDelegate举例)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">let dataSource = RxTableViewSectionedReloadDataSource&lt;SectionModel&lt;String, Double&gt;&gt;()</div><div class="line"></div><div class="line"> let delegate = RxTableViewSectionedReloadDelegate&lt;SectionModel&lt;String, Double&gt;&gt;()</div><div class="line"></div><div class="line"> override func viewDidLoad() &#123;</div><div class="line">     super.viewDidLoad()</div><div class="line">     </div><div class="line">     let dataSource = self.dataSource</div><div class="line">     let delegate = self.delegate</div><div class="line">     </div><div class="line">     let items = Observable.just([</div><div class="line">         SectionModel(model: &quot;First section&quot;, items: [</div><div class="line">             1.0,</div><div class="line">             2.0,</div><div class="line">             3.0</div><div class="line">             ]),</div><div class="line">         SectionModel(model: &quot;Second section&quot;, items: [</div><div class="line">             1.0,</div><div class="line">             2.0,</div><div class="line">             3.0</div><div class="line">             ]),</div><div class="line">         SectionModel(model: &quot;Third section&quot;, items: [</div><div class="line">             1.0,</div><div class="line">             2.0,</div><div class="line">             3.0</div><div class="line">             ])</div><div class="line">         ])</div><div class="line">     </div><div class="line">     dataSource.configureCell = &#123; (_, tv, indexPath, element) in</div><div class="line">         let cell = tv.dequeueReusableCell(withIdentifier: &quot;Cell&quot;)!</div><div class="line">         cell.textLabel?.text = &quot;\(element) @ row \(indexPath.row)&quot;</div><div class="line">         return cell</div><div class="line">     &#125;</div><div class="line">     </div><div class="line">     delegate.configureSection = &#123; (_, tv, indexPath, element, type) in</div><div class="line">         var identifier = &quot;section&quot;</div><div class="line">         var sectionClass: AnyClass = FirstViewHeader.self</div><div class="line">         if indexPath.section == 0 &#123;</div><div class="line">             tv.register(sectionClass, forHeaderFooterViewReuseIdentifier: identifier)</div><div class="line">         &#125;else if indexPath.section == 1 &#123;</div><div class="line">             identifier = &quot;FirstSection&quot;</div><div class="line">             sectionClass = SecondViewHeader.self</div><div class="line">             tv.register(sectionClass, forHeaderFooterViewReuseIdentifier: identifier)</div><div class="line">         &#125;else&#123;</div><div class="line">             identifier = &quot;SecondSection&quot;</div><div class="line">             sectionClass = ThirdViewHeader.self</div><div class="line">             tv.register(sectionClass, forHeaderFooterViewReuseIdentifier: identifier)</div><div class="line">         &#125;</div><div class="line"></div><div class="line">         var v: RxTableViewSectionProxy</div><div class="line">         if let view = tv.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? RxTableViewSectionProxy &#123;</div><div class="line">             v = view</div><div class="line">         &#125;else &#123;</div><div class="line">             v = RxTableViewSectionProxy(reuseIdentifier: identifier)</div><div class="line">         &#125;</div><div class="line">         v.textLabel?.text = &quot;\(element)&quot;</div><div class="line">         v.contentView.backgroundColor = .randomColor</div><div class="line">         print(&quot;react____\(v)&quot;)</div><div class="line">         return v</div><div class="line">     &#125;</div><div class="line">     </div><div class="line">     delegate.sectionAndCellHeight = &#123; (_, tv, indexPath, element, type) in</div><div class="line">         var sectionClass: SimpleViewHeader.Type = FirstViewHeader.self</div><div class="line">         if indexPath.section == 0 &#123;</div><div class="line">         &#125;else if indexPath.section == 1 &#123;</div><div class="line">             sectionClass = SecondViewHeader.self</div><div class="line">         &#125;else&#123;</div><div class="line">             sectionClass = ThirdViewHeader.self</div><div class="line">         &#125;</div><div class="line">         </div><div class="line">         return sectionClass.heightForSection(withItem: element as AnyObject, indexPath: indexPath, sectionType: type)</div><div class="line">     &#125;</div><div class="line">     delegate.cellHeight = &#123; (_, tv, indexPath, element, type) in</div><div class="line">         var sectionClass: SimpleViewHeader.Type = FirstViewHeader.self</div><div class="line">         if indexPath.section == 0 &#123;</div><div class="line">         &#125;else if indexPath.section == 1 &#123;</div><div class="line">             sectionClass = SecondViewHeader.self</div><div class="line">         &#125;else&#123;</div><div class="line">             sectionClass = ThirdViewHeader.self</div><div class="line">         &#125;</div><div class="line">         </div><div class="line">         return sectionClass.heightForSection(withItem: element as AnyObject, indexPath: indexPath, sectionType: type)</div><div class="line">     &#125;</div><div class="line">     </div><div class="line">     items</div><div class="line">         .bind(to: tableView.rx.items(dataSource: dataSource))</div><div class="line">         .disposed(by: disposeBag)</div><div class="line">     </div><div class="line">     items.bind(to: tableView.rx.sectionViews(delegate: delegate))</div><div class="line">          .disposed(by: disposeBag)</div><div class="line">     </div><div class="line">     tableView.rx</div><div class="line">         .itemSelected</div><div class="line">         .map &#123; indexPath in</div><div class="line">             return (indexPath, dataSource[indexPath])</div><div class="line">         &#125;</div><div class="line">         .subscribe(onNext: &#123; indexPath, model in</div><div class="line">             DefaultWireframe.presentAlert(&quot;Tapped `\(model)` @ \(indexPath)&quot;)</div><div class="line">         &#125;)</div><div class="line">         .disposed(by: disposeBag)</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Delegate-创建-数据与dataSource-的绑定"><a href="#Delegate-创建-数据与dataSource-的绑定" class="headerlink" title="Delegate 创建 数据与dataSource 的绑定"></a>Delegate 创建 数据与dataSource 的绑定</h3><ul>
+<li>_TableViewSectionedDataSource 继承自 UITableViewDataSource, NSObject</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 子类复写</div><div class="line">open func _rx_numberOfSections(in tableView: UITableView) -&gt; Int &#123;</div><div class="line">        return 1</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">// 代理方法</div><div class="line">open func numberOfSections(in tableView: UITableView) -&gt; Int &#123;</div><div class="line">    return _rx_numberOfSections(in: tableView)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>TableViewSectionedDataSource 继承自 _TableViewSectionedDataSource 增加cell 创建的闭包 // 扩展, 增加cellheight 的闭包, sectionView 的闭包 &amp; 分区高度的闭包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">open override func _rx_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell &#123;</div><div class="line">        precondition(indexPath.item &lt; _sectionModels[indexPath.section].items.count)</div><div class="line">        </div><div class="line">        return configureCell(self, tableView, indexPath, self[indexPath])</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>RxTableViewSectionedReloadDataSource<S: SectionModelType> 继承自TableViewSectionedDatsSource &amp; Protocol RxTableViewDataSourceType</li>
+<li>根据实现协议 RxTableViewDataSourceType 来绑定外部数据源</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">open func tableView(_ tableView: UITableView, observedEvent: Event&lt;Element&gt;) &#123;</div><div class="line">        UIBindingObserver(UIElement: self) &#123; dataSource, element in</div><div class="line">            #if DEBUG</div><div class="line">                self._dataSourceBound = true</div><div class="line">            #endif</div><div class="line">            dataSource.setSections(element)</div><div class="line">            </div><div class="line">            tableView.reloadData()</div><div class="line">        &#125;.on(observedEvent)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">-------TableViewSectionedDataSource------</div><div class="line"></div><div class="line"> open func setSections(_ sections: [S]) &#123;</div><div class="line">    self._sectionModels = sections.map &#123; SectionModelSnapshot(model: $0, items: $0.items) &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="UITableView-与Delegate-绑定"><a href="#UITableView-与Delegate-绑定" class="headerlink" title="UITableView 与Delegate 绑定"></a>UITableView 与Delegate 绑定</h3><ul>
+<li>核心绑定方法—&gt; ObservableType 的扩展</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">func subscribeProxyDataSource&lt;P: DelegateProxyType&gt;(ofObject object: UIView, dataSource: AnyObject, retainDataSource: Bool, binding: @escaping (P, Event&lt;E&gt;) -&gt; Void)</div><div class="line">               -&gt; Disposable &#123;</div><div class="line">               // 创建或者查找委托</div><div class="line">               let proxy = P.proxyForObject(object)</div><div class="line">               // 创建代理&amp;绑定object 代理方法响应的对象</div><div class="line">               let unregisterDelegate = P.installForwardDelegate(dataSource, retainDelegate: retainDataSource, onProxyForObject: object)</div><div class="line">               // this is needed to flush any delayed old state (https://github.com/RxSwiftCommunity/RxDataSources/pull/75)</div><div class="line">               object.layoutIfNeeded()</div><div class="line"></div><div class="line">               let subscription = self.asObservable()</div><div class="line">                   .observeOn(MainScheduler())</div><div class="line">                   .catchError &#123; error in</div><div class="line">                       bindingErrorToInterface(error)</div><div class="line">                       return Observable.empty()</div><div class="line">                   &#125;</div><div class="line">                   // source can never end, otherwise it would release the subscriber, and deallocate the data source</div><div class="line">                   .concat(Observable.never())</div><div class="line">                   .takeUntil(object.rx.deallocated)</div><div class="line">                   .subscribe &#123; [weak object] (event: Event&lt;E&gt;) in</div><div class="line">                       if let object = object &#123;</div><div class="line">                           assert(proxy === P.currentDelegateFor(object), &quot;Proxy changed from the time it was first set.\nOriginal: \(proxy)\nExisting: \(String(describing: P.currentDelegateFor(object)))&quot;)</div><div class="line">                       &#125;</div><div class="line">                       </div><div class="line">                       // 通过该句实现数据源数据的传递, event 携带数据</div><div class="line">                       binding(proxy, event)</div><div class="line">                       </div><div class="line">                       switch event &#123;</div><div class="line">                       case .error(let error):</div><div class="line">                           bindingErrorToInterface(error)</div><div class="line">                           unregisterDelegate.dispose()</div><div class="line">                       case .completed:</div><div class="line">                           unregisterDelegate.dispose()</div><div class="line">                       default:</div><div class="line">                           break</div><div class="line">                       &#125;</div><div class="line">                   &#125;</div><div class="line">                   </div><div class="line">               return Disposables.create &#123; [weak object] in</div><div class="line">                   subscription.dispose()</div><div class="line">                   object?.layoutIfNeeded()</div><div class="line">                   unregisterDelegate.dispose()</div><div class="line">               &#125;</div><div class="line">           &#125;</div></pre></td></tr></table></figure>
+<p><strong>binding 闭包的实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> guard let tableView = tableView else &#123;</div><div class="line">                        return</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">delegate.tableView(tableView, observedEvent: event)</div></pre></td></tr></table></figure>
+<ul>
+<li>P.proxyForObject(object)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">  public static func proxyForObject(_ object: AnyObject) -&gt; Self &#123;</div><div class="line">MainScheduler.ensureExecutingOnScheduler()</div><div class="line"></div><div class="line">      let maybeProxy = Self.assignedProxyFor(object) as? Self</div><div class="line"></div><div class="line">      let proxy: Self</div><div class="line">      if let existingProxy = maybeProxy &#123;</div><div class="line">          proxy = existingProxy</div><div class="line">      &#125;</div><div class="line">      else &#123;</div><div class="line">          proxy = Self.createProxyForObject(object) as! Self</div><div class="line">          Self.assignProxy(proxy, toObject: object)</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      let currentDelegate: AnyObject? = Self.currentDelegateFor(object)</div><div class="line">      if currentDelegate !== proxy &#123;</div><div class="line">          proxy.setForwardToDelegate(currentDelegate, retainDelegate: false)</div><div class="line">          Self.setCurrentDelegate(proxy, toObject: object)</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      return proxy</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>仔细分析 let unregisterDelegate = P.installForwardDelegate(dataSource, retainDelegate: retainDataSource, onProxyForObject: object)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public static func installForwardDelegate(_ forwardDelegate: AnyObject, retainDelegate: Bool, onProxyForObject object: AnyObject) -&gt; Disposable &#123;</div><div class="line"></div><div class="line">       .........proxy.forwardToDelegate()为空校验.........</div><div class="line"></div><div class="line">       proxy.setForwardToDelegate(forwardDelegate, retainDelegate: retainDelegate)</div><div class="line">       </div><div class="line">       .........根据runtime动态方法响应实现绑定.........</div></pre></td></tr></table></figure>
+<ul>
+<li>proxy.setForwardToDelegate(forwardDelegate, retainDelegate: retainDelegate) 的objc 实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">open func setForwardToDelegate(_ delegate: AnyObject?, retainDelegate: Bool) &#123;</div><div class="line">        #if DEBUG // 4.0 all configurations</div><div class="line">            MainScheduler.ensureExecutingOnScheduler()</div><div class="line">        #endif</div><div class="line">        self._setForward(toDelegate: delegate, retainDelegate: retainDelegate)</div><div class="line">        self.reset()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">internal func reset() &#123;</div><div class="line">    guard let delegateProxySelf = self as? DelegateProxyType else &#123;</div><div class="line">        rxFatalErrorInDebug(&quot;\(self) doesn&apos;t implement delegate proxy type.&quot;)</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    guard let parentObject = self.parentObject else &#123; return &#125;</div><div class="line"></div><div class="line">    let selfType = type(of: delegateProxySelf)</div><div class="line"></div><div class="line">    let maybeCurrentDelegate = selfType.currentDelegateFor(parentObject)</div><div class="line"></div><div class="line">    if maybeCurrentDelegate === self &#123;</div><div class="line">        selfType.setCurrentDelegate(nil, toObject: parentObject)</div><div class="line">        selfType.setCurrentDelegate(self, toObject: parentObject)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">UITableViewDataSource 的重写 将data 驱动的dataSource 与tableView关联</div><div class="line">    public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) &#123;</div><div class="line">        let tableView: UITableView = castOrFatalError(object)</div><div class="line">        tableView.dataSource = castOptionalOrFatalError(delegate)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-(id)_forwardToDelegate &#123;</div><div class="line">    return __forwardToDelegate;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(void)_setForwardToDelegate:(id __nullable)forwardToDelegate retainDelegate:(BOOL)retainDelegate &#123;</div><div class="line">    __forwardToDelegate = forwardToDelegate;</div><div class="line">    </div><div class="line">    if (retainDelegate) &#123;</div><div class="line">        self.strongForwardDelegate = forwardToDelegate;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        self.strongForwardDelegate = nil;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>通过对UIKit 增加扩展来返回 RxDelegateProxy 的实例对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">extension UITableView &#123;</div><div class="line"> </div><div class="line">    /**</div><div class="line">    Factory method that enables subclasses to implement their own `delegate`.</div><div class="line">    </div><div class="line">    - returns: Instance of delegate proxy that wraps `delegate`.</div><div class="line">    */</div><div class="line">    public override func createRxDelegateProxy() -&gt; RxTableViewDelegateProxy &#123;</div><div class="line">        return RxTableViewDelegateProxy(parentObject: self)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">    Factory method that enables subclasses to implement their own `rx.dataSource`.</div><div class="line">    </div><div class="line">    - returns: Instance of delegate proxy that wraps `dataSource`.</div><div class="line">    */</div><div class="line">    public func createRxDataSourceProxy() -&gt; RxTableViewDataSourceProxy &#123;</div><div class="line">        return RxTableViewDataSourceProxy(parentObject: self)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+-->
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxSwift/" rel="tag"># RxSwift</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/10/RxSwift 入坑(一)/" rel="next" title="RxSwift 入坑(一)">
+                <i class="fa fa-chevron-left"></i> RxSwift 入坑(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yang" />
+          <p class="site-author-name" itemprop="name">Yang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RxCocoa-APIS"><span class="nav-number">1.</span> <span class="nav-text">RxCocoa APIS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RxCocoa-Highlighted-API"><span class="nav-number">2.</span> <span class="nav-text">RxCocoa Highlighted API</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
